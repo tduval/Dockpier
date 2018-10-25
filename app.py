@@ -42,4 +42,7 @@ api.add_resource(Containers, '/containers')
 
 
 if __name__ == '__main__':
+    print("############ Docker docking status ############")
+    print(client.version())
+    print("###############################################")
     app.run(debug=True, host='0.0.0.0')
