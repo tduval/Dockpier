@@ -1,3 +1,3 @@
-let Docker = require("dockerode");
+let Docker = require('dockerode');
 
 module.exports = new Docker({ socketPath: '/var/run/docker.sock' });
