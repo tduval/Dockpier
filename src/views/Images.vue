@@ -12,11 +12,10 @@
     <div class="wrapper">
         <div class="row">
             <div v-for="image in images" :key="image.id">
-                <div class="col-md-4 cards">
-                    <div>
-                        <h3>{{ image.id }}</h3>
-                        <p>{{ image.name }}</p>
-                    </div>
+                <div>
+                    <h3>{{ image.RepoTags[0] }}</h3>
+                    <p><strong>ID : </strong>{{ image.Id }}</p>
+                    <p><strong>Size : </strong>{{ image.Size }}</p>
                 </div>
             </div>
         </div>
@@ -31,26 +30,30 @@
 import axios from 'axios';
 
 export default {
-  name: 'images',
-  data() {
-    return {
-      images: [],
-      loading: false,
-    };
-  },
-  methods: {
-    getImagesList() {
-      this.loading = true;
-      axios.get('http://192.168.255.200:5000/images', { headers: { crossDomain: true } })
-        .then((response) => {
-          this.loading = false;
-          console.log(response);
-          this.images = response.data.value;
-        }, (error) => {
-          this.loading = false;
-          console.log('Error Axios : ', error);
-        });
+    name: 'images',
+    data() {
+        return {
+            images: [],
+            loading: false,
+        };
     },
-  },
+    methods: {
+        getImagesList() {
+            this.loading = true;
+            axios.get('http://192.168.255.200:5000/images', {
+                    headers: {
+                        crossDomain: true
+                    }
+                })
+                .then((response) => {
+                    this.loading = false;
+                    console.log(response);
+                    this.images = response.data;
+                }, (error) => {
+                    this.loading = false;
+                    console.log('Error Axios : ', error);
+                });
+        },
+    },
 };
 </script>
