@@ -5,12 +5,13 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+var Docker = require('dockerode');
+var docker = new Docker({socketPath: '/var/run/docker.sock'});
+console.log("main.js");
+console.log(docker.info());
+
 new Vue({
   router,
   store,
   render: h => h(App),
 }).$mount('#app');
-
-var Docker = require('dockerode');
-var docker = new Docker({socketPath: '/var/run/docker.sock'});
-console.log(docker.info());

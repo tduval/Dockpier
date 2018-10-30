@@ -33,3 +33,8 @@
   color: #42b983;
 }
 </style>
+
+<script>
+console.log("App.vue");
+console.log(docker.info());
+</script>
