@@ -5,9 +5,9 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-var Docker = require('dockerode');
-var docker = new Docker({socketPath: '/var/run/docker.sock'});
-console.log("main.js");
+let docker = require('./dockerapi');
+
+console.log('main.js');
 console.log(docker.info());
 
 new Vue({

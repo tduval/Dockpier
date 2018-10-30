@@ -35,6 +35,6 @@
 </style>
 
 <script>
-console.log("App.vue");
+console.log('App.vue');
 console.log(docker.info());
 </script>
