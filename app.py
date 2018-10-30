@@ -1,10 +1,12 @@
 # app.py - a minimal flask api using flask_restful
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 import docker
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 parser = reqparse.RequestParser()
 
