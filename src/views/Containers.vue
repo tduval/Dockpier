@@ -3,3 +3,9 @@
     <h1>Containers</h1>
   </div>
 </template>
+
+<style>
+</style>
+
+<script>
+</script>
