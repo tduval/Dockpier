@@ -5,11 +5,6 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
-const docker = require('./dockerapi');
-
-console.log('main.js');
-console.log(docker.info());
-
 new Vue({
   router,
   store,

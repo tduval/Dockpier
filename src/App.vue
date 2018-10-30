@@ -1,40 +1,36 @@
 <template>
-  <div id="app">
+<div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/containers">Containers</router-link> |
-      <router-link to="/images">Images</router-link> |
-      <router-link to="/networks">Networks</router-link> |
-      <router-link to="/swarm">Swarm</router-link> |
-      <router-link to="/about">About</router-link>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/containers">Containers</router-link> |
+        <router-link to="/images">Images</router-link> |
+        <router-link to="/networks">Networks</router-link> |
+        <router-link to="/swarm">Swarm</router-link> |
+        <router-link to="/about">About</router-link>
     </div>
     <router-view/>
-  </div>
+</div>
 </template>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
 }
+
 #nav {
-  padding: 30px;
+    padding: 30px;
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
+    font-weight: bold;
+    color: #2c3e50;
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
-
-<script>
-console.log('App.vue');
-console.log(docker.info());
-</script>
