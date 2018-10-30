@@ -10,3 +10,7 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app');
+
+var Docker = require('dockerode');
+var docker = new Docker({socketPath: '/var/run/docker.sock'});
+console.log(docker.info());
