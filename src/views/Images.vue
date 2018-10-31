@@ -15,6 +15,13 @@
             <ImageCard :img='image' />
         </div>
     </div>
+    <md-snackbar :md-active.sync="showSnackbar">
+        <span>
+            <md-icon class="md-accent">error_outline</md-icon>
+            {{ errorSnackbar }} -
+            Please verify your configuration and retry the operation.
+        </span>
+    </md-snackbar>
 </div>
 </template>
 
@@ -41,6 +48,8 @@ export default {
     return {
       images: [],
       loading: false,
+      showSnackbar: false,
+      errorSnackbar: null,
     };
   },
   methods: {
@@ -54,8 +63,10 @@ export default {
           this.images = response.data;
         }, (error) => {
           this.loading = false;
+          this.showSnackbar = true;
           // eslint-disable-next-line
           console.log('Error Axios : ', error);
+          this.errorSnackbar = error.message;
         });
     },
   },
