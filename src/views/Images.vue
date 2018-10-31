@@ -1,59 +1,63 @@
 <template>
-<div class="images">
-    <h1>Images</h1>
-
-    <h2>Click the button to get Docker Images list</h2>
-    <button id="btn" class="" v-on:click="getImagesList">Get Images</button>
-
-    <div v-if="loading">
-        <img src="src/assets/loader.gif" /> Loading.....
+<div>
+    <div class="md-layout md-gutter md-alignment-center">
+        <h1>Images</h1>
+        <md-button class="md-icon-button md-primary" v-on:click="getImagesList">
+            <md-icon>cached</md-icon>
+         </md-button>
     </div>
 
-    <div class="wrapper">
-        <div class="row">
-            <div v-for="image in images" :key="image.id">
-                <div>
-                    <h3>{{ image.RepoTags[0] }}</h3>
-                    <p><strong>ID : </strong>{{ image.Id }}</p>
-                    <p><strong>Size : </strong>{{ image.Size }}</p>
-                </div>
-            </div>
+    <div class="md-layout md-alignment-center">
+        <div v-if="loading">
+            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+        </div>
+        <div class="md-layout-item" v-for="image in images" :key="image.id">
+            <ImageCard :img='image' />
         </div>
     </div>
 </div>
 </template>
 
 <style>
+.md-layout {
+    margin: 30px;
+}
+
+.md-layout-item {
+    margin: 20px;
+}
 </style>
 
 <script>
 import axios from 'axios';
+import ImageCard from '@/components/ImageCard.vue';
 
 export default {
-    name: 'images',
-    data() {
-        return {
-            images: [],
-            loading: false,
-        };
+  name: 'images',
+  components: {
+    ImageCard,
+  },
+  data() {
+    return {
+      images: [],
+      loading: false,
+    };
+  },
+  methods: {
+    getImagesList() {
+      this.loading = true;
+      axios.get('http://192.168.255.200:5000/images')
+        .then((response) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.log(response.data);
+          this.images = response.data;
+        }, (error) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.log('Error Axios : ', error);
+        });
     },
-    methods: {
-        getImagesList() {
-            this.loading = true;
-            axios.get('http://192.168.255.200:5000/images', {
-                    headers: {
-                        crossDomain: true
-                    }
-                })
-                .then((response) => {
-                    this.loading = false;
-                    console.log(response);
-                    this.images = response.data;
-                }, (error) => {
-                    this.loading = false;
-                    console.log('Error Axios : ', error);
-                });
-        },
-    },
+  },
 };
 </script>
