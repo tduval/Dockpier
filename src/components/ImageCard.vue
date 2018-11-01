@@ -50,7 +50,7 @@ import axios from 'axios';
 export default {
   name: 'ImageCard',
   props: {
-    img: [],
+    img: null,
   },
   data() {
     return {
