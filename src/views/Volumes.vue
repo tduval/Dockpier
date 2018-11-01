@@ -37,7 +37,7 @@ export default {
     loading() {
       return this.$store.state.loading;
     },
-    NETWORKS() {
+    VOLUMES() {
       return this.$store.state.volumes;
     },
   },
