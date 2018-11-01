@@ -30,6 +30,9 @@
 
 export default {
   name: 'networks',
+  mounted() {
+    this.refreshData();
+  },
   computed: {
     loading() {
       return this.$store.state.loading;
