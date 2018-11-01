@@ -7,12 +7,8 @@
         </md-button>
     </div>
 
-    <div v-if="loading">
-        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-    </div>
-
     <div class="md-layout md-gutter md-alignment-top-center">
-
+        <vue-element-loading :active="loading" color="#42b983"/>
 
         <div v-if="SYS_VERSION" class="md-layout-item md-size-30">
             <md-table md-card>
@@ -53,6 +49,7 @@
 </style>
 
 <script>
+// import VueElementLoading from 'vue-element-loading';
 
 export default {
   name: 'home',

@@ -7,11 +7,8 @@
          </md-button>
     </div>
 
-    <div v-if="loading">
-        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-    </div>
-
     <div class="md-layout md-alignment-center">
+        <vue-element-loading :active="loading" color="#42b983"/>
         <div class="md-layout-item" v-for="image in IMAGES" :key="image.id">
             <ImageCard :img='image' />
         </div>
