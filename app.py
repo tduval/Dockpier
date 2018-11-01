@@ -73,12 +73,26 @@ class Networks(Resource):
         return networktable
 
 class Network(Resource):
-    def get(self, image_id):
+    def get(self, net_id):
         return client.networks.get(net_id)
 
     def delete(self, net_id):
         return client.networks.remove(net_id), 204
 
+## Volumes Section ##
+class Volumes(Resource):
+    def get(self):
+        volumetable = []
+        for volume in client.volumes.list():
+            volumetable.append(volume.attrs)
+        return volumetable
+
+class Volume(Resource):
+    def get(self, vol_id):
+        return client.volumes.get(vol_id)
+
+    def delete(self, vol_id):
+        return client.volumes.remove(vol_id), 204
 
 
 client = docker.from_env()
@@ -96,6 +110,9 @@ api.add_resource(Containers, '/containers')
 
 api.add_resource(Networks, '/networks')
 api.add_resource(Network, '/networks/<net_id>')
+
+api.add_resource(Volumes, '/volumes')
+api.add_resource(Volume, '/volumes/<vol_id>')
 
 if __name__ == '__main__':
     print("############ Docker docking status ############")
