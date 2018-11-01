@@ -99,6 +99,6 @@ api.add_resource(Network, '/networks/<net_id>')
 
 if __name__ == '__main__':
     print("############ Docker docking status ############")
-    print(client.ping())
+    print("Docker Initialized and Connected ? " + client.ping())
     print("###############################################")
     app.run(debug=True, host='0.0.0.0')
