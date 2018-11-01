@@ -14,13 +14,21 @@ class Index(Resource):
     def get(self):
         return "Index page"
 
-class Info(Resource):
+class Sys_Info(Resource):
     def get(self):
         return client.info()
 
-class Version(Resource):
+class Sys_Version(Resource):
     def get(self):
         return client.version()
+
+class Sys_Df(Resource):
+    def get(self):
+        return client.df()
+
+class Sys_Events(Resource):
+    def get(self):
+        return client.events()
 
 ## Image Section ##
 class Images(Resource):
@@ -75,8 +83,11 @@ class Network(Resource):
 
 client = docker.from_env()
 api.add_resource(Index, '/')
-api.add_resource(Info, '/info')
-api.add_resource(Version, '/version')
+
+api.add_resource(Sys_Info, '/system/info')
+api.add_resource(Sys_Version, '/system/version')
+api.add_resource(Sys_Df, '/system/df')
+api.add_resource(Sys_Events, '/system/events')
 
 api.add_resource(Images, '/images')
 api.add_resource(Image, '/images/<image_id>')
@@ -88,6 +99,6 @@ api.add_resource(Network, '/networks/<net_id>')
 
 if __name__ == '__main__':
     print("############ Docker docking status ############")
-    print(client.version())
+    print(client.ping())
     print("###############################################")
     app.run(debug=True, host='0.0.0.0')
