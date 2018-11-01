@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Containers from './views/Containers.vue';
 import Images from './views/Images.vue';
 import Networks from './views/Networks.vue';
+import Volumes from './views/Volumes.vue';
 import Swarm from './views/Swarm.vue';
 
 Vue.use(Router);
@@ -29,6 +30,11 @@ export default new Router({
       path: '/networks',
       name: 'networks',
       component: Networks,
+    },
+    {
+      path: '/volumes',
+      name: 'volumes',
+      component: Volumes,
     },
     {
       path: '/swarm',
