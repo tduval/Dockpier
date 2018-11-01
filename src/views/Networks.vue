@@ -45,7 +45,6 @@ export default {
     refreshData() {
       this.$store.commit('SET_LOADING_STATE', true);
       this.$store.dispatch('getNetworks');
-      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };

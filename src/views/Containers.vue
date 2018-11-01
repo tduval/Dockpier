@@ -16,6 +16,9 @@
                 <h3>{{ container.Name }}</h3>
                 <p><strong>ID : </strong>{{ container.Id }}</p>
                 <p><strong>Image : </strong>{{ container.Image }}</p>
+                <p><strong>Image Name : </strong>
+                    {{ $store.getters.getImageById(container.Image).RepoTags[0] }}
+                </p>
             </div>
         </div>
     </div>
@@ -44,7 +47,6 @@ export default {
     refreshData() {
       this.$store.commit('SET_LOADING_STATE', true);
       this.$store.dispatch('getContainers');
-      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };

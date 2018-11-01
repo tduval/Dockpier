@@ -79,7 +79,6 @@ export default {
       this.$store.dispatch('getSysInfo');
       this.$store.dispatch('getSysVersion');
       this.$store.dispatch('getSysDf');
-      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };

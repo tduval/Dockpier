@@ -56,51 +56,54 @@ export default new Vuex.Store({
       state.volumes = payload;
     },
   },
+  getters: {
+    getImageById: state => id => state.images.find(image => image.Id === id),
+  },
   actions: {
     getSysInfo({ commit }) {
-      // commit('SET_LOADING_STATE', true);
+      commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/info')
         .then((response) => {
           // eslint-disable-next-line
           console.log('getSysInfo = '+response.data);
           commit('SET_SYS_INFO', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getSysInfo = ', error);
+          console.error('Error getSysInfo = ', error);
           return false;
         });
-      // commit('SET_LOADING_STATE', false);
     },
     getSysVersion({ commit }) {
-      // commit('SET_LOADING_STATE', true);
+      commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/version')
         .then((response) => {
           // eslint-disable-next-line
           console.log('getSysVersion = '+response.data);
           commit('SET_SYS_VERSION', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getSysVersion = ', error);
+          console.error('Error getSysVersion = ', error);
           return false;
         });
-      // commit('SET_LOADING_STATE', false);
     },
     getSysDf({ commit }) {
-      // commit('SET_LOADING_STATE', true);
+      commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/df')
         .then((response) => {
           // eslint-disable-next-line
           console.log('getSysDf = '+response.data);
           commit('SET_SYS_DF', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getSysDf = ', error);
+          console.error('Error getSysDf = ', error);
           return false;
         });
-      // commit('SET_LOADING_STATE', false);
     },
     getSysEvents({ commit }) {
       commit('SET_LOADING_STATE', true);
@@ -109,13 +112,13 @@ export default new Vuex.Store({
           // eslint-disable-next-line
           console.log('getSysEvents = '+response.data);
           commit('SET_SYS_EVENTS', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getSysEvents = ', error);
+          console.error('Error getSysEvents = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
     },
     getImages({ commit }) {
       commit('SET_LOADING_STATE', true);
@@ -124,13 +127,13 @@ export default new Vuex.Store({
           // eslint-disable-next-line
           console.log('getImages = '+response.data);
           commit('SET_IMAGES', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getImages = ', error);
+          console.error('Error getImages = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
     },
     getContainers({ commit }) {
       commit('SET_LOADING_STATE', true);
@@ -139,13 +142,13 @@ export default new Vuex.Store({
           // eslint-disable-next-line
           console.log('getContainers = '+response.data);
           commit('SET_CONTAINERS', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getContainers = ', error);
+          console.error('Error getContainers = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
     },
     getNetworks({ commit }) {
       commit('SET_LOADING_STATE', true);
@@ -154,13 +157,13 @@ export default new Vuex.Store({
           // eslint-disable-next-line
           console.log('getNetworks = '+response.data);
           commit('SET_NETWORKS', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getNetworks = ', error);
+          console.error('Error getNetworks = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
     },
     getVolumes({ commit }) {
       commit('SET_LOADING_STATE', true);
@@ -169,13 +172,13 @@ export default new Vuex.Store({
           // eslint-disable-next-line
           console.log('getVolumes = '+response.data);
           commit('SET_VOLUMES', response.data);
+          commit('SET_LOADING_STATE', false);
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.log('Error getVolumes = ', error);
+          console.error('Error getVolumes = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
     },
   },
 });
