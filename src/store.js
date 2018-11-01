@@ -20,6 +20,8 @@ export default new Vuex.Store({
     SET_LOADING_STATE(state, payload) {
       // eslint-disable-next-line
       state.loading = payload
+      // eslint-disable-next-line
+      console.log('LOADING = '+payload);
     },
     SET_SYS_INFO(state, payload) {
       // eslint-disable-next-line
@@ -56,7 +58,7 @@ export default new Vuex.Store({
   },
   actions: {
     getSysInfo({ commit }) {
-      commit('SET_LOADING_STATE', true);
+      // commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/info')
         .then((response) => {
           // eslint-disable-next-line
@@ -68,10 +70,10 @@ export default new Vuex.Store({
           console.log('Error getSysInfo = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
+      // commit('SET_LOADING_STATE', false);
     },
     getSysVersion({ commit }) {
-      commit('SET_LOADING_STATE', true);
+      // commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/version')
         .then((response) => {
           // eslint-disable-next-line
@@ -83,10 +85,10 @@ export default new Vuex.Store({
           console.log('Error getSysVersion = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
+      // commit('SET_LOADING_STATE', false);
     },
     getSysDf({ commit }) {
-      commit('SET_LOADING_STATE', true);
+      // commit('SET_LOADING_STATE', true);
       axios.get('http://192.168.255.200:5000/system/df')
         .then((response) => {
           // eslint-disable-next-line
@@ -98,7 +100,7 @@ export default new Vuex.Store({
           console.log('Error getSysDf = ', error);
           return false;
         });
-      commit('SET_LOADING_STATE', false);
+      // commit('SET_LOADING_STATE', false);
     },
     getSysEvents({ commit }) {
       commit('SET_LOADING_STATE', true);
