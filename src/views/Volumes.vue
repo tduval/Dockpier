@@ -7,10 +7,11 @@
         </md-button>
     </div>
 
+    <div v-if="loading">
+        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+    </div>
+
     <div class="md-layout md-gutter md-alignment-center">
-        <div v-if="loading">
-            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-        </div>
         <div v-for="volume in VOLUMES" :key="volume.id">
             <div>
                 <h3>{{ volume.Name }}</h3>
