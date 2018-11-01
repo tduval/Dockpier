@@ -2,25 +2,19 @@
 <div>
     <div class="md-layout md-gutter md-alignment-center">
         <h1>Info</h1>
-        <md-button class="md-icon-button md-primary" v-on:click="getAll">
+        <md-button class="md-icon-button md-primary" v-on:click='refreshData'>
           <md-icon>cached</md-icon>
         </md-button>
     </div>
 
+    <div v-if="loading">
+        <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
+    </div>
+
     <div class="md-layout md-gutter md-alignment-top-center">
 
-        <md-empty-state v-if="version == null && info == null"
-            md-rounded
-            md-icon="cached"
-            md-label="No data retrieved"
-            md-description="Refresh the data to get the latest information.">
-         </md-empty-state>
 
-        <div v-if="loading">
-            <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
-        </div>
-
-        <div v-if="version" class="md-layout-item md-size-30">
+        <div v-if="SYS_VERSION" class="md-layout-item md-size-30">
             <md-table md-card>
                 <md-table-toolbar>
                     <h1 class="md-title">Docker Version</h1>
@@ -29,14 +23,14 @@
                     <md-table-head>Key</md-table-head>
                     <md-table-head>Value</md-table-head>
                 </md-table-row>
-                <md-table-row v-for="(value, key) in version" :key="key.id">
+                <md-table-row v-for="(value, key) in SYS_VERSION" :key="key.id">
                     <md-table-cell><strong>{{ key }}</strong></md-table-cell>
                     <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
                 </md-table-row>
             </md-table>
         </div>
 
-        <div v-if="info" class="md-layout-item md-size-30">
+        <div v-if="SYS_INFO" class="md-layout-item md-size-30">
             <md-table md-card>
                 <md-table-toolbar>
                     <h1 class="md-title">Docker Engine Info</h1>
@@ -45,7 +39,7 @@
                     <md-table-head>Key</md-table-head>
                     <md-table-head>Value</md-table-head>
                 </md-table-row>
-                <md-table-row v-for="(value, key) in info" :key="key.id">
+                <md-table-row v-for="(value, key) in SYS_INFO" :key="key.id">
                     <md-table-cell><strong>{{ key }}</strong></md-table-cell>
                     <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
                 </md-table-row>
@@ -59,52 +53,33 @@
 </style>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
-import axios from 'axios';
 
 export default {
   name: 'home',
-  data() {
-    return {
-      info: null,
-      version: null,
-      loading: false,
-    };
+  mounted() {
+    this.refreshData();
+  },
+  computed: {
+    loading() {
+      return this.$store.state.loading;
+    },
+    SYS_INFO() {
+      return this.$store.state.sys_info;
+    },
+    SYS_VERSION() {
+      return this.$store.state.sys_version;
+    },
+    SYS_DF() {
+      return this.$store.state.sys_df;
+    },
   },
   methods: {
-    getAll() {
-      this.loading = true;
-      this.getVersion();
-      this.getInfo();
-    },
-    getVersion() {
-      this.loading = true;
-      axios.get('http://192.168.255.200:5000/version')
-        .then((response) => {
-          this.loading = false;
-          // eslint-disable-next-line
-        console.log(response.data);
-          this.version = response.data;
-        }, (error) => {
-          this.loading = false;
-          // eslint-disable-next-line
-        console.log('Error Axios : ', error);
-        });
-    },
-    getInfo() {
-      this.loading = true;
-      axios.get('http://192.168.255.200:5000/info')
-        .then((response) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log(response.data);
-          this.info = response.data;
-        }, (error) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log('Error Axios : ', error);
-        });
+    refreshData() {
+      this.$store.commit('SET_LOADING_STATE', true);
+      this.$store.dispatch('getSysInfo');
+      this.$store.dispatch('getSysVersion');
+      this.$store.dispatch('getSysDf');
+      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };

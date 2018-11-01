@@ -2,7 +2,7 @@
 <div>
     <div class="md-layout md-gutter md-alignment-center">
         <h1>Containers</h1>
-        <md-button class="md-icon-button md-primary" v-on:click="getContainersList">
+        <md-button class="md-icon-button md-primary" v-on:click="refreshData">
             <md-icon>cached</md-icon>
         </md-button>
     </div>
@@ -11,7 +11,7 @@
         <div v-if="loading">
             <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
         </div>
-        <div class="md-layout-item" v-for="container in containers" :key="container.id">
+        <div class="md-layout-item" v-for="container in CONTAINERS" :key="container.id">
             <div>
                 <h3>{{ container.Name }}</h3>
                 <p><strong>ID : </strong>{{ container.Id }}</p>
@@ -26,30 +26,25 @@
 </style>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'containers',
-  data() {
-    return {
-      containers: [],
-      loading: false,
-    };
+  mounted() {
+    this.refreshData();
+  },
+  computed: {
+    loading() {
+      return this.$store.state.loading;
+    },
+    CONTAINERS() {
+      return this.$store.state.containers;
+    },
   },
   methods: {
-    getContainersList() {
-      this.loading = true;
-      axios.get('http://192.168.255.200:5000/containers')
-        .then((response) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log(response.data);
-          this.containers = response.data;
-        }, (error) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log('Error Axios : ', error);
-        });
+    refreshData() {
+      this.$store.commit('SET_LOADING_STATE', true);
+      this.$store.dispatch('getContainers');
+      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };

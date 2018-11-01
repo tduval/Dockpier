@@ -2,7 +2,7 @@
 <div>
     <div class="md-layout md-gutter md-alignment-center">
         <h1>Networks</h1>
-        <md-button class="md-icon-button md-primary" v-on:click="getNetworksList">
+        <md-button class="md-icon-button md-primary" v-on:click="refreshData">
           <md-icon>cached</md-icon>
         </md-button>
     </div>
@@ -11,7 +11,7 @@
         <div v-if="loading">
             <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
         </div>
-        <div v-for="network in networks" :key="network.id">
+        <div v-for="network in NETWORKS" :key="network.id">
             <div>
                 <h3>{{ network.Name }}</h3>
                 <p><strong>ID : </strong>{{ network.Id }}</p>
@@ -27,30 +27,22 @@
 </style>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'networks',
-  data() {
-    return {
-      networks: [],
-      loading: false,
-    };
+  computed: {
+    loading() {
+      return this.$store.state.loading;
+    },
+    NETWORKS() {
+      return this.$store.state.networks;
+    },
   },
   methods: {
-    getNetworksList() {
-      this.loading = true;
-      axios.get('http://192.168.255.200:5000/networks')
-        .then((response) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log(response.data);
-          this.networks = response.data;
-        }, (error) => {
-          this.loading = false;
-          // eslint-disable-next-line
-          console.log('Error Axios : ', error);
-        });
+    refreshData() {
+      this.$store.commit('SET_LOADING_STATE', true);
+      this.$store.dispatch('getNetworks');
+      this.$store.commit('SET_LOADING_STATE', false);
     },
   },
 };
