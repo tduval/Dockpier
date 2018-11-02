@@ -36,7 +36,22 @@
 
                 <md-card-expand-content>
                   <md-card-content>
-                    {{ img.Size }}
+
+                      <md-table md-card style="text-align: left;">
+                          <md-table-toolbar>
+                              <h1 class="md-title">Image Details</h1>
+                          </md-table-toolbar>
+                          <md-table-row>
+                              <md-table-head>Key</md-table-head>
+                              <md-table-head>Value</md-table-head>
+                          </md-table-row>
+                          <md-table-row v-for="(value, key) in img" :key="key.id">
+                              <md-table-cell><strong>{{ key }}</strong></md-table-cell>
+                              <md-table-cell><span class="md-caption">{{ value }}</span>
+                              </md-table-cell>
+                          </md-table-row>
+                      </md-table>
+
                   </md-card-content>
                 </md-card-expand-content>
             </md-card-expand>

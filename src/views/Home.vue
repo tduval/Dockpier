@@ -3,7 +3,7 @@
     <div class="md-layout md-gutter md-alignment-center">
         <h1>Info</h1>
         <md-button class="md-icon-button md-primary" v-on:click='refreshData'>
-          <md-icon>cached</md-icon>
+            <md-icon>cached</md-icon>
         </md-button>
     </div>
 
@@ -11,7 +11,7 @@
         <vue-element-loading :active="loading" color="#42b983"/>
 
         <div v-if="SYS_VERSION" class="md-layout-item md-size-30">
-            <md-table md-card>
+            <md-table md-card style="text-align: left;">
                 <md-table-toolbar>
                     <h1 class="md-title">Docker Version</h1>
                 </md-table-toolbar>
@@ -26,8 +26,24 @@
             </md-table>
         </div>
 
+        <div v-if="SYS_DF" class="md-layout-item md-size-30">
+            <md-table md-card style="text-align: left;">
+                <md-table-toolbar>
+                    <h1 class="md-title">Docker Summary</h1>
+                </md-table-toolbar>
+                <md-table-row>
+                    <md-table-head>Key</md-table-head>
+                    <md-table-head>Value</md-table-head>
+                </md-table-row>
+                <md-table-row v-for="(value, key) in SYS_DF" :key="key.id">
+                    <md-table-cell><strong>{{ key }}</strong></md-table-cell>
+                    <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
+                </md-table-row>
+            </md-table>
+        </div>
+
         <div v-if="SYS_INFO" class="md-layout-item md-size-30">
-            <md-table md-card>
+            <md-table md-card style="text-align: left;">
                 <md-table-toolbar>
                     <h1 class="md-title">Docker Engine Info</h1>
                 </md-table-toolbar>
