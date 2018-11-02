@@ -1,39 +1,46 @@
 <template>
 <div id="app">
     <v-app>
-        <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/containers">Containers</router-link> |
-            <router-link to="/images">Images</router-link> |
-            <router-link to="/networks">Networks</router-link> |
-            <router-link to="/volumes">Volumes</router-link> |
-            <router-link to="/swarm">Swarm</router-link> |
-            <router-link to="/about">About</router-link>
-        </div>
-        <router-view/>
+
+        <v-navigation-drawer v-model="drawer" clipped fixed app>
+        </v-navigation-drawer>
+
+        <v-toolbar clipped-left fixed app>
+            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-avatar>
+                <img src="/logo/icons8-docker-filled-50.svg">
+            </v-avatar>
+
+            <v-toolbar-title>Dockpier</v-toolbar-title>
+            <v-spacer></v-spacer>
+
+            <v-toolbar-items>
+                <v-btn flat to="/">Home</v-btn>
+                <v-btn flat to="/containers">Containers</v-btn>
+                <v-btn flat to="/images">Images</v-btn>
+                <v-btn flat to="/networks">Networks</v-btn>
+                <v-btn flat to="/volumes">Volumes</v-btn>
+                <v-btn flat to="/swarm">Swarm</v-btn>
+                <v-btn flat to="/about">About</v-btn>
+            </v-toolbar-items>
+
+        </v-toolbar>
+        <v-content>
+            <v-container>
+                <router-view/>
+            </v-container>
+        </v-content>
     </v-app>
 </div>
 </template>
 
 <style>
-#app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-}
-
-#nav {
-    padding: 30px;
-}
-
-#nav a {
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-    color: #42b983;
-}
 </style>
+
+<script>
+export default {
+  data: () => ({
+    drawer: false,
+  }),
+};
+</script>
