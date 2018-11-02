@@ -1,18 +1,18 @@
 <template>
 <div>
-    <div class="md-layout md-gutter md-alignment-center">
+    <v-layout row justify-center>
         <h1>Images</h1>
-        <md-button class="md-icon-button md-primary" v-on:click="refreshData">
-            <md-icon>cached</md-icon>
-        </md-button>
-    </div>
+        <v-btn flat icon color="blue" v-on:click='refreshData'>
+            <v-icon>cached</v-icon>
+        </v-btn>
+    </v-layout>
 
-    <div class="md-layout md-gutter md-alignment-top-center">
+    <v-layout row justify-space-around>
         <vue-element-loading :active="loading" color="#42b983"/>
-        <div class="md-layout-item md-size-30" v-for="image in IMAGES" :key="image.id">
+        <v-flex v-for="image in IMAGES" :key="image.id">
             <ImageCard :img='image' />
-        </div>
-    </div>
+        </v-flex>
+    </v-layout>
 </div>
 </template>
 

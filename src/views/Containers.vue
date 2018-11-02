@@ -1,39 +1,32 @@
 <template>
 <div>
-    <div class="md-layout md-gutter md-alignment-center">
+    <v-layout row justify-center>
         <h1>Containers</h1>
-        <md-button class="md-icon-button md-primary" v-on:click="refreshData">
-            <md-icon>cached</md-icon>
-        </md-button>
-    </div>
+        <v-btn flat icon color="blue" v-on:click='refreshData'>
+            <v-icon>cached</v-icon>
+        </v-btn>
+    </v-layout>
 
-    <div class="md-layout md-gutter md-alignment-top-center">
+    <v-layout row justify-space-around>
         <vue-element-loading :active="loading" color="#42b983"/>
 
-        <div class="md-layout-item md-size-30" v-for="container in CONTAINERS" :key="container.id">
-            <div>
-                <h3>{{ container.Name }}</h3>
-                <p><strong>ID : </strong>{{ container.Id }}</p>
-                <p><strong>Image : </strong>{{ container.Image }}</p>
-                <p><strong>Image Name : </strong>
-                    {{ $store.getters.getImageById(container.Image).RepoTags[0] }}
-                </p>
-                <md-table md-card style="text-align: left;">
-                    <md-table-toolbar>
-                        <h1 class="md-title">Container Details</h1>
-                    </md-table-toolbar>
-                    <md-table-row>
-                        <md-table-head>Key</md-table-head>
-                        <md-table-head>Value</md-table-head>
-                    </md-table-row>
-                    <md-table-row v-for="(value, key) in container" :key="key.id">
-                        <md-table-cell><strong>{{ key }}</strong></md-table-cell>
-                        <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
-                    </md-table-row>
-                </md-table>
-            </div>
-        </div>
-    </div>
+        <v-flex v-for="(container, index) in CONTAINERS" :key="container.id" xs3>
+            <h2>{{ container.Name }}</h2>
+            <p><strong>ID : </strong>{{ container.Id }}</p>
+            <p><strong>Image : </strong>{{ container.Image }}</p>
+            <p><strong>Image Name : </strong>
+                {{ $store.getters.getImageById(container.Image).RepoTags[0] }}
+            </p>
+            <v-data-table
+                :items="(Object.entries(CONTAINERS_ARRAY[index][1]).map(value => (value)))"
+                hide-headers hide-actions>
+                <template slot="items" slot-scope="props">
+                    <td><strong>{{ props.item[0] }}</strong></td>
+                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                </template>
+            </v-data-table>
+        </v-flex>
+    </v-layout>
 </div>
 </template>
 
@@ -53,6 +46,9 @@ export default {
     },
     CONTAINERS() {
       return this.$store.state.containers;
+    },
+    CONTAINERS_ARRAY() {
+      return Object.entries(this.CONTAINERS).map(value => (value));
     },
   },
   methods: {

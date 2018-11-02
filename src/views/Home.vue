@@ -1,63 +1,46 @@
 <template>
 <div>
-    <div class="md-layout md-gutter md-alignment-center">
+    <v-layout row justify-center>
         <h1>Info</h1>
-        <md-button class="md-icon-button md-primary" v-on:click='refreshData'>
-            <md-icon>cached</md-icon>
-        </md-button>
-    </div>
+        <v-btn flat icon color="blue" v-on:click='refreshData'>
+            <v-icon>cached</v-icon>
+        </v-btn>
+    </v-layout>
 
-    <div class="md-layout md-gutter md-alignment-top-center">
+    <v-layout row justify-space-around>
         <vue-element-loading :active="loading" color="#42b983"/>
 
-        <div v-if="SYS_VERSION" class="md-layout-item md-size-30">
-            <md-table md-card style="text-align: left;">
-                <md-table-toolbar>
-                    <h1 class="md-title">Docker Version</h1>
-                </md-table-toolbar>
-                <md-table-row>
-                    <md-table-head>Key</md-table-head>
-                    <md-table-head>Value</md-table-head>
-                </md-table-row>
-                <md-table-row v-for="(value, key) in SYS_VERSION" :key="key.id">
-                    <md-table-cell><strong>{{ key }}</strong></md-table-cell>
-                    <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
-                </md-table-row>
-            </md-table>
-        </div>
+        <v-flex v-if="SYS_VERSION" xs3>
+            <h2 class="text-md-center">Docker Version</h2>
+            <v-data-table :items="SYS_VERSION_ARRAY" hide-headers hide-actions>
+                <template slot="items" slot-scope="props">
+                    <td><strong>{{ props.item[0] }}</strong></td>
+                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                </template>
+            </v-data-table>
+        </v-flex>
 
-        <div v-if="SYS_DF" class="md-layout-item md-size-30">
-            <md-table md-card style="text-align: left;">
-                <md-table-toolbar>
-                    <h1 class="md-title">Docker Summary</h1>
-                </md-table-toolbar>
-                <md-table-row>
-                    <md-table-head>Key</md-table-head>
-                    <md-table-head>Value</md-table-head>
-                </md-table-row>
-                <md-table-row v-for="(value, key) in SYS_DF" :key="key.id">
-                    <md-table-cell><strong>{{ key }}</strong></md-table-cell>
-                    <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
-                </md-table-row>
-            </md-table>
-        </div>
+        <v-flex v-if="SYS_DF" xs3>
+            <h2 class="text-md-center">Docker Stats</h2>
+            <v-data-table :items="SYS_DF_ARRAY" hide-headers hide-actions>
+                <template slot="items" slot-scope="props">
+                    <td><strong>{{ props.item[0] }}</strong></td>
+                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                </template>
+            </v-data-table>
+        </v-flex>
 
-        <div v-if="SYS_INFO" class="md-layout-item md-size-30">
-            <md-table md-card style="text-align: left;">
-                <md-table-toolbar>
-                    <h1 class="md-title">Docker Engine Info</h1>
-                </md-table-toolbar>
-                <md-table-row>
-                    <md-table-head>Key</md-table-head>
-                    <md-table-head>Value</md-table-head>
-                </md-table-row>
-                <md-table-row v-for="(value, key) in SYS_INFO" :key="key.id">
-                    <md-table-cell><strong>{{ key }}</strong></md-table-cell>
-                    <md-table-cell><span class="md-caption">{{ value }}</span></md-table-cell>
-                </md-table-row>
-            </md-table>
-        </div>
-    </div>
+        <v-flex v-if="SYS_INFO" ma-2 xs3>
+            <h2 class="text-md-center">Docker Info</h2>
+            <v-data-table :items="SYS_INFO_ARRAY" hide-headers hide-actions>
+                <template slot="items" slot-scope="props">
+                    <td><strong>{{ props.item[0] }}</strong></td>
+                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                </template>
+            </v-data-table>
+        </v-flex>
+
+    </v-layout>
 </div>
 </template>
 
@@ -79,11 +62,20 @@ export default {
     SYS_INFO() {
       return this.$store.state.sys_info;
     },
+    SYS_INFO_ARRAY() {
+      return Object.entries(this.SYS_INFO).map(value => (value));
+    },
     SYS_VERSION() {
       return this.$store.state.sys_version;
     },
+    SYS_VERSION_ARRAY() {
+      return Object.entries(this.SYS_VERSION).map(value => (value));
+    },
     SYS_DF() {
       return this.$store.state.sys_df;
+    },
+    SYS_DF_ARRAY() {
+      return Object.entries(this.SYS_DF).map(value => (value));
     },
   },
   methods: {
