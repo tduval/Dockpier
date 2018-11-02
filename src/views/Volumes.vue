@@ -7,7 +7,7 @@
         </v-btn>
     </v-layout>
 
-    <v-layout row justify-space-around>
+    <v-layout row justify-space-around wrap>
         <vue-element-loading :active="loading" color="#42b983"/>
 
         <v-flex v-for="(volume, index) in VOLUMES" :key="volume.id" xs3>
