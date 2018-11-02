@@ -20,8 +20,6 @@ export default new Vuex.Store({
     SET_LOADING_STATE(state, payload) {
       // eslint-disable-next-line
       state.loading = payload
-      // eslint-disable-next-line
-      console.log('LOADING = '+payload);
     },
     SET_SYS_INFO(state, payload) {
       // eslint-disable-next-line
@@ -65,7 +63,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/system/info')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getSysInfo = '+response.data);
+          console.log('getSysInfo = ', response.data);
           commit('SET_SYS_INFO', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -80,7 +78,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/system/version')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getSysVersion = '+response.data);
+          console.log('getSysVersion = ', response.data);
           commit('SET_SYS_VERSION', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -95,7 +93,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/system/df')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getSysDf = '+response.data);
+          console.log('getSysDf = ', response.data);
           commit('SET_SYS_DF', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -110,7 +108,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/system/events')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getSysEvents = '+response.data);
+          console.log('getSysEvents = ', response.data);
           commit('SET_SYS_EVENTS', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -125,7 +123,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/images')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getImages = '+response.data);
+          console.log('getImages = ', response.data);
           commit('SET_IMAGES', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -140,7 +138,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/containers')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getContainers = '+response.data);
+          console.log('getContainers = ', response.data);
           commit('SET_CONTAINERS', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -155,7 +153,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/networks')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getNetworks = '+response.data);
+          console.log('getNetworks = ', response.data);
           commit('SET_NETWORKS', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
@@ -170,7 +168,7 @@ export default new Vuex.Store({
       axios.get('http://192.168.255.200:5000/volumes')
         .then((response) => {
           // eslint-disable-next-line
-          console.log('getVolumes = '+response.data);
+          console.log('getVolumes = ', response.data);
           commit('SET_VOLUMES', response.data);
           commit('SET_LOADING_STATE', false);
           return true;
