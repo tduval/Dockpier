@@ -1,62 +1,37 @@
 <template>
-    <div class="card-expansion">
-        <md-card>
-            <md-card-header>
-                <div class="md-title">{{ img.RepoTags[0] }}</div>
-                <md-tooltip md-direction="bottom" md-delay="300">{{ img.Id }}</md-tooltip>
-                <div class="md-subhead">{{ img.Config.Cmd }}</div>
-            </md-card-header>
+<div>
+    <v-card>
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">{{ img.RepoTags[0] }}</div>
+            <span class="grey--text">{{ img.Config.Cmd }}</span>
+          </div>
+        </v-card-title>
 
-            <md-card-expand>
-                <md-card-actions md-alignment="space-between">
-                  <div>
-                    <md-button class="md-raised md-primary">
-                        Inspect
-                    </md-button>
-                    <md-dialog-confirm
-                          :md-active.sync="activeDeleteDialog"
-                          md-title="Do you want to delete this image?"
-                          md-content="Warning
-                            this actions will permanently remove the image from the Docker host.
-                            Be sure to have a backup first or upload it to Docker Hub."
-                          md-confirm-text="Delete"
-                          md-cancel-text="Cancel"
-                          @md-confirm="deleteImage( img.Id )" />
-                    <md-button class="md-raised md-accent" @click="activeDeleteDialog = true">
-                        Delete
-                    </md-button>
-                  </div>
+        <v-card-actions>
+          <v-btn flat>Inspect</v-btn>
+          <v-btn flat color="red">Delete</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn icon @click="show = !show">
+            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+          </v-btn>
+        </v-card-actions>
 
-                  <md-card-expand-trigger>
-                    <md-button class="md-icon-button">
-                      <md-icon>keyboard_arrow_down</md-icon>
-                    </md-button>
-                  </md-card-expand-trigger>
-                </md-card-actions>
+        <v-slide-y-transition>
+          <v-card-text v-show="show">
+              <v-data-table
+                  :items="(Object.entries(img).map(value => (value)))"
+                  hide-headers hide-actions>
+                  <template slot="items" slot-scope="props">
+                      <td><strong>{{ props.item[0] }}</strong></td>
+                      <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                  </template>
+              </v-data-table>
+          </v-card-text>
+        </v-slide-y-transition>
+    </v-card>
 
-                <md-card-expand-content>
-                  <md-card-content>
-
-                      <md-table md-card style="text-align: left;">
-                          <md-table-toolbar>
-                              <h1 class="md-title">Image Details</h1>
-                          </md-table-toolbar>
-                          <md-table-row>
-                              <md-table-head>Key</md-table-head>
-                              <md-table-head>Value</md-table-head>
-                          </md-table-row>
-                          <md-table-row v-for="(value, key) in img" :key="key.id">
-                              <md-table-cell><strong>{{ key }}</strong></md-table-cell>
-                              <md-table-cell><span class="md-caption">{{ value }}</span>
-                              </md-table-cell>
-                          </md-table-row>
-                      </md-table>
-
-                  </md-card-content>
-                </md-card-expand-content>
-            </md-card-expand>
-        </md-card>
-    </div>
+</div>
 </template>
 
 <script>
@@ -69,6 +44,7 @@ export default {
   },
   data() {
     return {
+      show: false,
       activeDeleteDialog: false,
       loading: false,
     };
