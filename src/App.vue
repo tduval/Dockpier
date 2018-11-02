@@ -1,15 +1,17 @@
 <template>
 <div id="app">
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/containers">Containers</router-link> |
-        <router-link to="/images">Images</router-link> |
-        <router-link to="/networks">Networks</router-link> |
-        <router-link to="/volumes">Volumes</router-link> |
-        <router-link to="/swarm">Swarm</router-link> |
-        <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <v-app>
+        <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/containers">Containers</router-link> |
+            <router-link to="/images">Images</router-link> |
+            <router-link to="/networks">Networks</router-link> |
+            <router-link to="/volumes">Volumes</router-link> |
+            <router-link to="/swarm">Swarm</router-link> |
+            <router-link to="/about">About</router-link>
+        </div>
+        <router-view/>
+    </v-app>
 </div>
 </template>
 
