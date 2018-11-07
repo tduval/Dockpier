@@ -6,6 +6,11 @@
             <v-icon>cached</v-icon>
         </v-btn>
     </v-layout>
+    <v-layout row justify-center>
+        <span class="text-xs-center grey--text">
+        {{ IMAGES.length }} {{ IMAGES.length | pluralize('Image') }} currently exists
+        </span>
+    </v-layout>
 
     <v-container fluid grid-list-xl>
         <v-layout row justify-space-around wrap>

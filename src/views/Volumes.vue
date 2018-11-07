@@ -6,6 +6,11 @@
             <v-icon>cached</v-icon>
         </v-btn>
     </v-layout>
+    <v-layout row justify-center>
+        <span class="text-xs-center grey--text">
+        {{ VOLUMES.length }} {{ VOLUMES.length | pluralize('Volume') }} currently exists
+        </span>
+    </v-layout>
 
     <v-layout row justify-space-around wrap>
         <vue-element-loading :active="loading" color="#42b983"/>
