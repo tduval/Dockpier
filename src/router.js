@@ -5,7 +5,6 @@ import Containers from './views/Containers.vue';
 import Images from './views/Images.vue';
 import Networks from './views/Networks.vue';
 import Volumes from './views/Volumes.vue';
-import Swarm from './views/Swarm.vue';
 
 Vue.use(Router);
 
@@ -35,19 +34,6 @@ export default new Router({
       path: '/volumes',
       name: 'volumes',
       component: Volumes,
-    },
-    {
-      path: '/swarm',
-      name: 'swarm',
-      component: Swarm,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
   ],
 });

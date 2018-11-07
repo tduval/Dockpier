@@ -20,8 +20,6 @@
                 <v-btn flat to="/images">Images</v-btn>
                 <v-btn flat to="/networks">Networks</v-btn>
                 <v-btn flat to="/volumes">Volumes</v-btn>
-                <v-btn flat to="/swarm">Swarm</v-btn>
-                <v-btn flat to="/about">About</v-btn>
             </v-toolbar-items>
 
         </v-toolbar>
