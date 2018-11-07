@@ -12,24 +12,15 @@
         </span>
     </v-layout>
 
-    <v-layout row justify-space-around wrap>
-        <vue-element-loading :active="loading" color="#42b983"/>
+    <v-container fluid grid-list-xl>
+        <v-layout row justify-space-around wrap>
+            <vue-element-loading :active="loading" color="#42b983"/>
 
-        <v-flex v-for="(network, index) in NETWORKS" :key="network.id" xs3>
-            <h2>{{ network.Name }}</h2>
-            <p><strong>ID : </strong>{{ network.Id }}</p>
-            <p><strong>Scope : </strong>{{ network.Scope }}</p>
-            <p><strong>Driver : </strong>{{ network.Driver }}</p>
-            <v-data-table
-                :items="(Object.entries(NETWORKS_ARRAY[index][1]).map(value => (value)))"
-                hide-headers hide-actions>
-                <template slot="items" slot-scope="props">
-                    <td><strong>{{ props.item[0] }}</strong></td>
-                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                </template>
-            </v-data-table>
-        </v-flex>
-    </v-layout>
+            <v-flex v-for="network in NETWORKS" :key="network.id">
+                <NetworkCard :net='network' />
+            </v-flex>
+        </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -37,9 +28,13 @@
 </style>
 
 <script>
+import NetworkCard from '@/components/NetworkCard.vue';
 
 export default {
   name: 'networks',
+  components: {
+    NetworkCard,
+  },
   mounted() {
     this.refreshData();
   },
