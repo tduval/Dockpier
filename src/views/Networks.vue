@@ -1,15 +1,13 @@
 <template>
 <div>
     <v-layout row justify-center>
+        <v-avatar color="teal" size="36">
+            <span class="white--text headline">{{ NETWORKS.length }}</span>
+        </v-avatar>
         <h1>Networks</h1>
         <v-btn flat icon color="blue" v-on:click='refreshData'>
             <v-icon>cached</v-icon>
         </v-btn>
-    </v-layout>
-    <v-layout row justify-center>
-        <span class="text-xs-center grey--text">
-        {{ NETWORKS.length }} {{ NETWORKS.length | pluralize('Network') }} currently exists
-        </span>
     </v-layout>
 
     <v-container fluid grid-list-xl>
