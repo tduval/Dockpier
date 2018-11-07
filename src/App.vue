@@ -20,6 +20,9 @@
                 <v-btn flat to="/images">Images</v-btn>
                 <v-btn flat to="/networks">Networks</v-btn>
                 <v-btn flat to="/volumes">Volumes</v-btn>
+                <v-btn flat icon href="https://github.com/tduval/Dockpier" target="_blank" >
+                  <img src="/logo/github-circle.svg" />
+                </v-btn>
             </v-toolbar-items>
 
         </v-toolbar>
