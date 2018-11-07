@@ -4,13 +4,22 @@
         <v-card-title primary-title>
           <div>
             <div class="headline">
-                <v-icon v-if='cntr.State.Paused' color='orange'>pause</v-icon>
-                <v-icon v-if='cntr.State.Running' color='green'>play_arrow</v-icon>
-                <v-icon v-if='cntr.State.Status == "exited"' color='red'>stop</v-icon>
+                <v-tooltip top>
+                    <v-icon v-if='cntr.State.Paused' color='orange' slot="activator">
+                        pause_circle_filled</v-icon>
+                    <v-icon v-if='cntr.State.Running' color='green' slot="activator">
+                        play_circle_filled</v-icon>
+                    <v-icon v-if='cntr.State.Status == "exited"' color='red' slot="activator">
+                        remove_circle</v-icon>
+                    <span>{{ cntr.State.Status }}</span>
+                </v-tooltip>
                 {{ cntr.Name }}
             </div>
-            <span class="grey--text">
-                {{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}
+            <span class="grey--text">Based on image :
+                <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
+            </span><br>
+            <span class="grey--text">Run CMD :
+                <strong>{{ cntr.Config.Cmd }}</strong>
             </span>
           </div>
         </v-card-title>
