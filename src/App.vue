@@ -50,9 +50,9 @@ export default {
     this.$store.dispatch('getSysDf');
     // this.$store.dispatch('getSysEvents');
     this.$store.dispatch('getImages');
-    this.$store.dispatch('getContainers');
     this.$store.dispatch('getNetworks');
     this.$store.dispatch('getVolumes');
+    this.$store.dispatch('getContainers');
   },
 };
 </script>
