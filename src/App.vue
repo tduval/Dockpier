@@ -16,10 +16,30 @@
 
             <v-toolbar-items>
                 <v-btn flat to="/">Home</v-btn>
-                <v-btn flat to="/containers">Containers</v-btn>
-                <v-btn flat to="/images">Images</v-btn>
-                <v-btn flat to="/networks">Networks</v-btn>
-                <v-btn flat to="/volumes">Volumes</v-btn>
+                <v-btn flat to="/containers">
+                    <v-badge color="teal">
+                      <span slot="badge" small>{{ CONTAINERS.length }}</span>
+                      <span>Containers</span>
+                    </v-badge>
+                </v-btn>
+                <v-btn flat to="/images">
+                    <v-badge color="teal">
+                      <span slot="badge" small>{{ IMAGES.length }}</span>
+                      <span>Images</span>
+                    </v-badge>
+                </v-btn>
+                <v-btn flat to="/networks">
+                    <v-badge color="teal">
+                      <span slot="badge" small>{{ NETWORKS.length }}</span>
+                      <span>Networks</span>
+                    </v-badge>
+                </v-btn>
+                <v-btn flat to="/volumes">
+                    <v-badge color="teal">
+                      <span slot="badge" small>{{ VOLUMES.length }}</span>
+                      <span>Volumes</span>
+                    </v-badge>
+                </v-btn>
                 <v-btn flat icon href="https://github.com/tduval/Dockpier" target="_blank" >
                   <img src="/logo/github-circle.svg" />
                 </v-btn>
@@ -53,6 +73,20 @@ export default {
     this.$store.dispatch('getNetworks');
     this.$store.dispatch('getVolumes');
     this.$store.dispatch('getContainers');
+  },
+  computed: {
+    CONTAINERS() {
+      return this.$store.state.containers;
+    },
+    IMAGES() {
+      return this.$store.state.images;
+    },
+    NETWORKS() {
+      return this.$store.state.networks;
+    },
+    VOLUMES() {
+      return this.$store.state.volumes;
+    },
   },
 };
 </script>
