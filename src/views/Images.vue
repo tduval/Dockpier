@@ -10,6 +10,7 @@
     <v-container fluid grid-list-xl>
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
+
             <v-flex v-for="image in IMAGES" :key="image.id">
                 <ImageCard :img='image' />
             </v-flex>
