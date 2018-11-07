@@ -12,23 +12,15 @@
         </span>
     </v-layout>
 
-    <v-layout row justify-space-around wrap>
-        <vue-element-loading :active="loading" color="#42b983"/>
+    <v-container fluid grid-list-xl>
+        <v-layout row justify-space-around wrap>
+            <vue-element-loading :active="loading" color="#42b983"/>
 
-        <v-flex v-for="(volume, index) in VOLUMES" :key="volume.id" xs3>
-            <h2>{{ volume.Name }}</h2>
-            <p><strong>Scope : </strong>{{ volume.Scope }}</p>
-            <p><strong>Driver : </strong>{{ volume.Driver }}</p>
-            <v-data-table
-                :items="(Object.entries(VOLUMES_ARRAY[index][1]).map(value => (value)))"
-                hide-headers hide-actions>
-                <template slot="items" slot-scope="props">
-                    <td><strong>{{ props.item[0] }}</strong></td>
-                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                </template>
-            </v-data-table>
-        </v-flex>
-    </v-layout>
+            <v-flex v-for="volume in VOLUMES" :key="volume.id">
+                <VolumeCard :vol='volume' />
+            </v-flex>
+        </v-layout>
+    </v-container>
   </div>
 </template>
 
@@ -36,9 +28,13 @@
 </style>
 
 <script>
+import VolumeCard from '@/components/VolumeCard.vue';
 
 export default {
   name: 'volumes',
+  components: {
+    VolumeCard,
+  },
   mounted() {
     this.refreshData();
   },
