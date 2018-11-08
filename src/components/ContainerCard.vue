@@ -66,7 +66,7 @@
                         </v-avatar>
                         <span>{{ cntr.State.Status }}</span>
                     </v-tooltip>
-                    {{ cntr.Name }}
+                    <span class="text-truncate">{{ cntr.Name }}</span>
                 </div>
                 <span class="grey--text">Based on image :
                     <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
@@ -77,9 +77,21 @@
                 </div>
             </v-card-title>
 
+            <v-divider inset></v-divider>
+
             <v-card-text>
-                blablablabl
-                baklbakl
+                <v-tooltip top>
+                    <p v-if='cntr.State.Running' slot="activator">
+                        Container started {{ cntr.State.StartedAt | moment("from") }}
+                    </p>
+                    <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
+                </v-tooltip>
+                <v-tooltip top>
+                <p v-if='!cntr.State.Running' slot="activator">
+                    Container finished at {{ cntr.State.FinishedAt | moment("from") }}
+                </p>
+                <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
+            </v-tooltip>
             </v-card-text>
 
             <v-card-actions>
