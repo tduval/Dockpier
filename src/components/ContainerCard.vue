@@ -37,15 +37,18 @@
                   </v-speed-dial>
                 <div class="headline">
                     <v-tooltip top>
-                        <v-icon color='warning' slot="activator"
-                                v-if='cntr.State.Paused'>
-                            pause_circle_filled</v-icon>
-                        <v-icon color='success' slot="activator"
-                                v-if='cntr.State.Running && !cntr.State.Paused'>
-                            play_circle_filled</v-icon>
-                        <v-icon color='error' slot="activator"
-                                v-if='!cntr.State.Running'>
-                            remove_circle</v-icon>
+                        <v-avatar color='warning' slot="activator" size="26px"
+                                    v-if='cntr.State.Paused'>
+                          <v-icon dark small>pause</v-icon>
+                        </v-avatar>
+                        <v-avatar color='success' slot="activator" size="26px"
+                                    v-if='cntr.State.Running && !cntr.State.Paused'>
+                          <v-icon dark small>play_arrow</v-icon>
+                        </v-avatar>
+                        <v-avatar color='error' slot="activator" size="26px"
+                                    v-if='!cntr.State.Running'>
+                          <v-icon dark small>stop</v-icon>
+                        </v-avatar>
                         <span>{{ cntr.State.Status }}</span>
                     </v-tooltip>
                     {{ cntr.Name }}
