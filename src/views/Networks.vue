@@ -14,7 +14,7 @@
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
 
-            <v-flex v-for="network in NETWORKS" :key="network.id">
+            <v-flex v-for="network in NETWORKS" :key="network.id" xs3>
                 <NetworkCard :net='network' />
             </v-flex>
         </v-layout>

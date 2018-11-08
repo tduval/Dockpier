@@ -14,7 +14,7 @@
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
 
-            <v-flex v-for="image in IMAGES" :key="image.id">
+            <v-flex v-for="image in IMAGES" :key="image.id" xs3>
                 <ImageCard :img='image' />
             </v-flex>
         </v-layout>

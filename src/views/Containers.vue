@@ -14,7 +14,7 @@
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
 
-            <v-flex v-for="container in CONTAINERS" :key="container.id">
+            <v-flex v-for="container in CONTAINERS" :key="container.id" xs3>
                 <ContainerCard :cntr='container' />
             </v-flex>
         </v-layout>
