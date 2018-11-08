@@ -72,7 +72,7 @@
                     <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
                 </span><br>
                 <span class="grey--text">Run CMD :
-                    <strong>{{ cntr.Config.Cmd }}</strong>
+                    <code>{{ cntr.Config.Cmd.join(' ') }}</code>
                 </span>
                 </div>
             </v-card-title>
