@@ -10,6 +10,7 @@ import store from './store';
 Vue.use(Vuetify);
 Vue.component('VueElementLoading', VueElementLoading);
 Vue.use(Vue2Filters);
+Vue.use(require('vue-moment-jalaali'));
 
 Vue.config.productionTip = false;
 
