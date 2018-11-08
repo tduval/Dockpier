@@ -92,7 +92,7 @@ class ContainerStatus(Resource):
     def get(self, container_id):
         return client.containers.get(container_id).status
 
-    def put(self):
+    def put(self, container_id):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
         container = client.container.get(container_id)
