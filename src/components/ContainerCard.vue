@@ -88,7 +88,7 @@
                 </v-tooltip>
                 <v-tooltip top>
                 <p v-if='!cntr.State.Running' slot="activator">
-                    Container finished at {{ cntr.State.FinishedAt | moment("from") }}
+                    Container stopped {{ cntr.State.FinishedAt | moment("from") }}
                 </p>
                 <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
             </v-tooltip>
