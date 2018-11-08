@@ -4,13 +4,47 @@
         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
             <v-card-title primary-title>
               <div>
+                  <v-speed-dial absolute right direction="left" v-model="fab">
+                      <v-btn fab dark small slot="activator" v-model="fab">
+                        <v-icon>menu</v-icon>
+                        <v-icon>close</v-icon>
+                      </v-btn>
+                      <v-btn fab dark small color="warning"
+                             v-if='cntr.State.Running && !cntr.State.Paused'>
+                          <!-- Pause -->
+                          <v-icon>pause</v-icon>
+                      </v-btn>
+                      <v-btn fab small
+                             v-if='cntr.State.Paused'>
+                          <!-- Unpause -->
+                          <v-icon>pause</v-icon>
+                      </v-btn>
+                      <v-btn fab dark small color="error"
+                             v-if='cntr.State.Running && !cntr.State.Paused'>
+                          <!-- Stop -->
+                          <v-icon>stop</v-icon>
+                      </v-btn>
+                      <v-btn fab dark small color="success"
+                             v-if='!cntr.State.Running'>
+                          <!-- Start -->
+                          <v-icon>play_arrow</v-icon>
+                      </v-btn>
+                      <v-btn fab dark small color="primary"
+                             v-if='cntr.State.Running || cntr.State.Paused'>
+                          <!-- Restart -->
+                          <v-icon>replay</v-icon>
+                      </v-btn>
+                  </v-speed-dial>
                 <div class="headline">
                     <v-tooltip top>
-                        <v-icon v-if='cntr.State.Paused' color='orange' slot="activator">
+                        <v-icon color='warning' slot="activator"
+                                v-if='cntr.State.Paused'>
                             pause_circle_filled</v-icon>
-                        <v-icon v-if='cntr.State.Running' color='green' slot="activator">
+                        <v-icon color='success' slot="activator"
+                                v-if='cntr.State.Running && !cntr.State.Paused'>
                             play_circle_filled</v-icon>
-                        <v-icon v-if='cntr.State.Status == "exited"' color='red' slot="activator">
+                        <v-icon color='error' slot="activator"
+                                v-if='!cntr.State.Running'>
                             remove_circle</v-icon>
                         <span>{{ cntr.State.Status }}</span>
                     </v-tooltip>
@@ -24,6 +58,11 @@
                 </span>
               </div>
             </v-card-title>
+
+            <v-card-text>
+                blablablabl
+                baklbakl
+            </v-card-text>
 
             <v-card-actions>
               <v-btn flat>Inspect</v-btn>
@@ -40,8 +79,8 @@
                       :items="(Object.entries(cntr).map(value => (value)))"
                       hide-headers hide-actions>
                       <template slot="items" slot-scope="props">
-                          <td><strong>{{ props.item[0] }}</strong></td>
-                          <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
+                        <td><strong>{{ props.item[0] }}</strong></td>
+                        <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
                       </template>
                   </v-data-table>
               </v-card-text>
@@ -63,6 +102,7 @@ export default {
       show: false,
       activeDeleteDialog: false,
       loading: false,
+      fab: false,
     };
   },
   methods: {
