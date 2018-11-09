@@ -1,5 +1,5 @@
 # app.py - a minimal flask api using flask_restful
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 import docker
@@ -97,6 +97,7 @@ class ContainerStatus(Resource):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
         app.logger.debug("ContainerStatus - PUT (args) = %s", args)
+        app.logger.debug("ContainerStatus - PUT (Request) = %s", request)
         container = client.containers.get(container_id)
         if args.status == "start":
             return container.start(), 201
@@ -109,8 +110,6 @@ class ContainerStatus(Resource):
         elif args.status == "unpause":
             return container.unpause(), 201
         else:
-            app.logger.debug(request)
-            app.logger.debug(Resource)
             return False, 400
 
     def options(self, container_id):
