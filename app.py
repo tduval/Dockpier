@@ -35,6 +35,8 @@ class Sys_Events(Resource):
 ## Image Section ##
 class Images(Resource):
     def get(self):
+        app.logger.debug('Images Debug')
+        app.logger.error('Images Error')
         imagetable = []
         for image in client.images.list():
             imagetable.append(image.attrs)
@@ -78,6 +80,8 @@ class ImageSearch(Resource):
 ## Container Section ##
 class Containers(Resource):
     def get(self):
+        app.logger.debug('Containers Debug')
+        app.logger.error('Containers Error')
         containertable = []
         for container in client.containers.list(all=True):
             containertable.append(container.attrs)
@@ -95,6 +99,8 @@ class ContainerStatus(Resource):
         return client.containers.get(container_id).status
 
     def put(self, container_id):
+        app.logger.debug('ContainerStatus Debug')
+        app.logger.error('ContainerStatus Error')
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
         app.logger.debug("ContainerStatus - PUT (args) = %s", args)
