@@ -3,6 +3,7 @@ from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 import docker
+import sys
 
 app = Flask(__name__)
 api = Api(app)
@@ -95,7 +96,8 @@ class ContainerStatus(Resource):
     def put(self, container_id):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
-        print("ContainerStatus - PUT (args) = " + args)
+        print("ContainerStatus - PUT (args) = " + args, file=sys.stdout)
+        print("ContainerStatus - Request = " + request, file=sys.stdout)
         container = client.containers.get(container_id)
         if args.status == "start":
             return container.start(), 201
