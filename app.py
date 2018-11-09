@@ -95,6 +95,7 @@ class ContainerStatus(Resource):
     def put(self, container_id):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
+        print("ContainerStatus - PUT (args) = " + args)
         container = client.containers.get(container_id)
         if args.status == "start":
             return container.start(), 201
