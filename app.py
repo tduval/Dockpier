@@ -96,7 +96,7 @@ class ContainerStatus(Resource):
     def put(self, container_id):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
-        print("ContainerStatus - PUT (args) = " + args, file=sys.stdout)
+        app.logger.debug("ContainerStatus - PUT (args) = %s", args)
         print("ContainerStatus - Request = " + request, file=sys.stdout)
         container = client.containers.get(container_id)
         if args.status == "start":
