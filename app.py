@@ -109,7 +109,7 @@ class ContainerStatus(Resource):
         elif args.status == "unpause":
             return container.unpause(), 201
         else:
-            return container, 400
+            return False, 400
 
     def options(self, container_id):
         app.logger.debug("ContainerStatus - OPTIONS")
