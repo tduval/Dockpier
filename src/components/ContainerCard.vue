@@ -12,7 +12,8 @@
                         <v-tooltip top color="warning" transition="scale-transition">
                             <v-btn fab dark small color="warning"
                                  v-if='cntr.State.Running && !cntr.State.Paused'
-                                 slot="activator">
+                                 slot="activator"
+                                 @click='statusContainer("pause")'>
                               <v-icon>pause</v-icon>
                             </v-btn>
                             <span>Pause</span>
@@ -20,7 +21,8 @@
                         <v-tooltip top transition="scale-transition">
                             <v-btn fab small
                                 v-if='cntr.State.Paused'
-                                slot="activator">
+                                slot="activator"
+                                @click='statusContainer("unpause")'>
                                 <v-icon>pause</v-icon>
                             </v-btn>
                             <span>Unpause</span>
@@ -28,7 +30,8 @@
                         <v-tooltip top color="error" transition="scale-transition">
                             <v-btn fab dark small color="error"
                                  v-if='cntr.State.Running && !cntr.State.Paused'
-                                 slot="activator">
+                                 slot="activator"
+                                 @click='statusContainer("stop")'>
                                 <v-icon>stop</v-icon>
                             </v-btn>
                             <span>Stop</span>
@@ -36,7 +39,8 @@
                         <v-tooltip top color="success" transition="scale-transition">
                             <v-btn fab dark small color="success"
                                  v-if='!cntr.State.Running'
-                                 slot="activator">
+                                 slot="activator"
+                                 @click='statusContainer("start")'>
                                 <v-icon>play_arrow</v-icon>
                             </v-btn>
                             <span>Start</span>
@@ -44,7 +48,8 @@
                         <v-tooltip top color="primary" transition="scale-transition">
                             <v-btn fab dark small color="primary"
                                  v-if='cntr.State.Running || cntr.State.Paused'
-                                 slot="activator">
+                                 slot="activator"
+                                 @click='statusContainer("restart")'>
                                 <v-icon>replay</v-icon>
                             </v-btn>
                             <span>Restart</span>
@@ -134,6 +139,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'ContainerCard',
@@ -150,6 +156,21 @@ export default {
     };
   },
   methods: {
+    statusContainer(operation) {
+      // eslint-disable-next-line
+      console.log('statusContainer : ', this.cntr.Name.substring(1), operation);
+      this.loading = true;
+      axios.put(`http://192.168.255.200:5000/containers/${this.cntr.Id}/status`, { status: operation })
+        .then((response) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.log(response.data);
+        }, (error) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.log('Error Axios : ', error);
+        });
+    },
   },
 };
 </script>
