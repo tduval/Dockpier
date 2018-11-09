@@ -97,7 +97,8 @@ class ContainerStatus(Resource):
         parser.add_argument('status', help='actions type')
         args = parser.parse_args()
         app.logger.debug("ContainerStatus - PUT (args) = %s", args)
-        app.logger.debug("ContainerStatus - PUT (Request) = %s", request)
+        app.logger.debug("ContainerStatus - PUT (Request.Headers) = %s", request.headers)
+        app.logger.debug("ContainerStatus - PUT (Request.Data) = %s", request.data)
         container = client.containers.get(container_id)
         if args.status == "start":
             return container.start(), 201
