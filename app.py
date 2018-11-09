@@ -112,7 +112,8 @@ class ContainerStatus(Resource):
             return container, 400
 
     def options(self, container_id):
-        return true
+        app.logger.debug("ContainerStatus - OPTIONS")
+        return True
 
 class ContainerLogs(Resource):
     def get(self, container_id):
