@@ -109,6 +109,8 @@ class ContainerStatus(Resource):
         elif args.status == "unpause":
             return container.unpause(), 201
         else:
+            app.logger.debug(request)
+            app.logger.debug(Resource)
             return False, 400
 
     def options(self, container_id):
