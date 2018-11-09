@@ -4,6 +4,7 @@ from flask_restful import Resource, Api, reqparse
 from flask_cors import CORS
 import docker
 import sys
+import logging
 
 app = Flask(__name__)
 api = Api(app)
