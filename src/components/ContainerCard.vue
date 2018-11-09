@@ -2,6 +2,7 @@
 <div>
     <v-hover>
         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
+            <v-progress-linear :indeterminate="true" v-if='loading'></v-progress-linear>
             <v-card-title primary-title>
                 <div>
                     <v-speed-dial absolute right direction="left" v-model="fab">
@@ -71,7 +72,8 @@
                         </v-avatar>
                         <span>{{ cntr.State.Status }}</span>
                     </v-tooltip>
-                    <span class="text-truncate">{{ cntr.Name }}</span>
+                    <v-divider vertical class="mx-1"></v-divider>
+                    <span class="text-truncate">{{ cntr.Name.substring(1) }}</span>
                 </div>
                 <span class="grey--text">Based on image :
                     <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
@@ -158,13 +160,14 @@ export default {
   methods: {
     statusContainer(operation) {
       // eslint-disable-next-line
-      console.log('statusContainer : ', this.cntr.Name.substring(1), operation);
+      console.log('statusContainer : ', this.cntr.Name, operation);
       this.loading = true;
       axios.put(`http://192.168.255.200:5000/containers/${this.cntr.Id}/status`, { status: operation })
         .then((response) => {
-          this.loading = false;
+          this.$store.dispatch('getContainers');
           // eslint-disable-next-line
           console.log(response.data);
+          this.loading = false;
         }, (error) => {
           this.loading = false;
           // eslint-disable-next-line
