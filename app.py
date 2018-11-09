@@ -111,6 +111,9 @@ class ContainerStatus(Resource):
         else:
             return container, 400
 
+    def options(self, container_id):
+        return true
+
 class ContainerLogs(Resource):
     def get(self, container_id):
         return client.containers.get(container_id).logs()
