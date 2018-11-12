@@ -118,9 +118,10 @@
         </v-card>
     </v-hover>
 
-    <v-dialog v-model="inspectDialog" width="1200px">
+    <v-dialog v-model="inspectDialog" width="1200px" scrollable >
         <v-card>
             <v-card-title class="headline">Inspect details</v-card-title>
+            <v-divider></v-divider>
             <v-card-text>
                 <v-data-table
                     :items="(Object.entries(cntr).map(value => (value)))"
@@ -131,8 +132,8 @@
                     </template>
                 </v-data-table>
             </v-card-text>
+            <v-divider></v-divider>
             <v-card-actions>
-                <v-spacer></v-spacer>
                 <v-btn @click.native="inspectDialog = false">Close</v-btn>
             </v-card-actions>
         </v-card>
