@@ -5,82 +5,80 @@
             <v-progress-linear :indeterminate="true" v-if='loading'></v-progress-linear>
             <v-card-title primary-title>
                 <div>
-                    <v-speed-dial absolute right direction="left" v-model="fab">
-                        <v-btn fab dark small slot="activator" v-model="fab">
-                            <v-icon>menu</v-icon>
-                            <v-icon>close</v-icon>
-                        </v-btn>
-                        <v-tooltip top color="warning" transition="scale-transition">
-                            <v-btn fab dark small color="warning"
-                                 v-if='cntr.State.Running && !cntr.State.Paused'
-                                 slot="activator"
-                                 @click='statusContainer("pause")'>
-                              <v-icon>pause</v-icon>
-                            </v-btn>
-                            <span>Pause</span>
-                        </v-tooltip>
-                        <v-tooltip top transition="scale-transition">
-                            <v-btn fab small
-                                v-if='cntr.State.Paused'
-                                slot="activator"
-                                @click='statusContainer("unpause")'>
+                    <div class="headline mb-3">
+                        <v-speed-dial absolute direction="right" v-model="fab">
+                            <v-btn fab small slot="activator" v-model="fab"
+                            v-if='getContainerStatus === "paused"' color="warning">
                                 <v-icon>pause</v-icon>
+                                <v-icon>close</v-icon>
                             </v-btn>
-                            <span>Unpause</span>
-                        </v-tooltip>
-                        <v-tooltip top color="error" transition="scale-transition">
-                            <v-btn fab dark small color="error"
-                                 v-if='cntr.State.Running && !cntr.State.Paused'
-                                 slot="activator"
-                                 @click='statusContainer("stop")'>
-                                <v-icon>stop</v-icon>
-                            </v-btn>
-                            <span>Stop</span>
-                        </v-tooltip>
-                        <v-tooltip top color="success" transition="scale-transition">
-                            <v-btn fab dark small color="success"
-                                 v-if='!cntr.State.Running'
-                                 slot="activator"
-                                 @click='statusContainer("start")'>
+                            <v-btn fab small slot="activator" v-model="fab"
+                            v-else-if='getContainerStatus === "running"' color="success">
                                 <v-icon>play_arrow</v-icon>
+                                <v-icon>close</v-icon>
                             </v-btn>
-                            <span>Start</span>
-                        </v-tooltip>
-                        <v-tooltip top color="primary" transition="scale-transition">
-                            <v-btn fab dark small color="primary"
-                                 v-if='cntr.State.Running || cntr.State.Paused'
-                                 slot="activator"
-                                 @click='statusContainer("restart")'>
-                                <v-icon>replay</v-icon>
+                            <v-btn fab small slot="activator" v-model="fab"
+                            v-else color="error">
+                                <v-icon>stop</v-icon>
+                                <v-icon>close</v-icon>
                             </v-btn>
-                            <span>Restart</span>
-                        </v-tooltip>
-                    </v-speed-dial>
-                <div class="headline">
-                    <v-tooltip top>
-                        <v-avatar color='warning' slot="activator" size="26px"
-                                    v-if='cntr.State.Paused'>
-                          <v-icon dark small>pause</v-icon>
-                        </v-avatar>
-                        <v-avatar color='success' slot="activator" size="26px"
-                                    v-if='cntr.State.Running && !cntr.State.Paused'>
-                          <v-icon dark small>play_arrow</v-icon>
-                        </v-avatar>
-                        <v-avatar color='error' slot="activator" size="26px"
-                                    v-if='!cntr.State.Running'>
-                          <v-icon dark small>stop</v-icon>
-                        </v-avatar>
-                        <span>{{ cntr.State.Status }}</span>
-                    </v-tooltip>
-                    <v-divider vertical class="mx-1"></v-divider>
-                    <span class="text-truncate">{{ cntr.Name.substring(1) }}</span>
-                </div>
-                <span class="grey--text">Based on image :
-                    <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
-                </span><br>
-                <span class="grey--text">Run CMD :
-                    <code>{{ cntr.Config.Cmd.join(' ') }}</code>
-                </span>
+
+                            <v-tooltip top color="warning" transition="scale-transition">
+                                <v-btn fab dark small color="warning"
+                                     v-if='getContainerStatus === "running"'
+                                     slot="activator"
+                                     @click='statusContainer("pause")'>
+                                  <v-icon>pause</v-icon>
+                                </v-btn>
+                                <span>Pause</span>
+                            </v-tooltip>
+                            <v-tooltip top transition="scale-transition">
+                                <v-btn fab small
+                                    v-if='getContainerStatus === "paused"'
+                                    slot="activator"
+                                    @click='statusContainer("unpause")'>
+                                    <v-icon>pause</v-icon>
+                                </v-btn>
+                                <span>Unpause</span>
+                            </v-tooltip>
+                            <v-tooltip top color="error" transition="scale-transition">
+                                <v-btn fab dark small color="error"
+                                     v-if='getContainerStatus === "running"'
+                                     slot="activator"
+                                     @click='statusContainer("stop")'>
+                                    <v-icon>stop</v-icon>
+                                </v-btn>
+                                <span>Stop</span>
+                            </v-tooltip>
+                            <v-tooltip top color="success" transition="scale-transition">
+                                <v-btn fab dark small color="success"
+                                     v-if='getContainerStatus === "stopped"'
+                                     slot="activator"
+                                     @click='statusContainer("start")'>
+                                    <v-icon>play_arrow</v-icon>
+                                </v-btn>
+                                <span>Start</span>
+                            </v-tooltip>
+                            <v-tooltip top color="primary" transition="scale-transition">
+                                <v-btn fab dark small color="primary"
+                                     v-if='getContainerStatus === "running"
+                                     || getContainerStatus === "paused"'
+                                     slot="activator"
+                                     @click='statusContainer("restart")'>
+                                    <v-icon>replay</v-icon>
+                                </v-btn>
+                                <span>Restart</span>
+                            </v-tooltip>
+                        </v-speed-dial>
+                        <v-divider vertical class="mx-4"></v-divider>
+                        <span class="text-truncate">{{ cntr.Name.substring(1) }}</span>
+                    </div>
+                    <span class="grey--text">Based on image :
+                        <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
+                    </span><br>
+                    <span class="grey--text">Run CMD :
+                        <code>{{ cntr.Config.Cmd.join(' ') }}</code>
+                    </span>
                 </div>
             </v-card-title>
 
@@ -156,7 +154,20 @@ export default {
       loading: false,
       fab: false,
       inspectDialog: false,
+      cntrStatus: false,
     };
+  },
+  computed: {
+    getContainerStatus() {
+      if (this.cntr.State.Running && !this.cntr.State.Paused) {
+        return 'running';
+      } else if (this.cntr.State.Paused) {
+        return 'paused';
+      } else if (!this.cntr.State.Running) {
+        return 'stopped';
+      }
+      return null;
+    },
   },
   methods: {
     statusContainer(operation) {
