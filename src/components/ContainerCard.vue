@@ -6,7 +6,8 @@
             <v-card-title primary-title>
                 <div>
                     <div class="headline mb-3">
-                        <v-speed-dial absolute direction="right" v-model="fab">
+                        <v-speed-dial absolute direction="right"
+                        v-model="fab" style="z-index: auto;">
                             <v-btn fab small slot="activator" v-model="fab"
                             v-if='getContainerStatus === "paused"' color="warning">
                                 <v-icon>pause</v-icon>
