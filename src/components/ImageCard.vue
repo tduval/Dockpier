@@ -5,7 +5,7 @@
             <v-card-title primary-title>
               <div>
                 <div class="headline">{{ img.RepoTags[0] }}</div>
-                <span class="grey--text">{{ img.Config.Cmd }}</span>
+                <span class="grey--text"><code>{{ img.Config.Cmd.join(' ') }}</code></span>
               </div>
             </v-card-title>
 
