@@ -79,25 +79,49 @@
                     </span><br>
                     <span class="grey--text">Run CMD :
                         <code>{{ cntr.Config.Cmd.join(' ') }}</code>
-                    </span>
+                    </span><br>
+                    <v-tooltip top>
+                        <span v-if='getContainerStatus != "stopped"' slot="activator"
+                        class="font-italic grey--text">
+                            Container started {{ cntr.State.StartedAt | moment("from") }}
+                        </span>
+                        <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm:ss") }}</span>
+                    </v-tooltip>
+                    <v-tooltip top>
+                        <span v-if='getContainerStatus === "stopped"' slot="activator"
+                        class="font-italic grey--text">
+                            Container stopped {{ cntr.State.FinishedAt | moment("from") }}
+                        </span>
+                        <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm:ss") }}</span>
+                    </v-tooltip>
                 </div>
             </v-card-title>
 
             <v-divider inset></v-divider>
 
             <v-card-text>
-                <v-tooltip top>
-                    <p v-if='getContainerStatus != "stopped"' slot="activator">
-                        Container started {{ cntr.State.StartedAt | moment("from") }}
-                    </p>
-                    <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
-                </v-tooltip>
-                <v-tooltip top>
-                <p v-if='getContainerStatus === "stopped"' slot="activator">
-                    Container stopped {{ cntr.State.FinishedAt | moment("from") }}
-                </p>
-                <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
-            </v-tooltip>
+                <v-layout row justify-space-between wrap px-3>
+                    <strong>Published Ports</strong>
+                    <span v-if="cntr.Config.ExposedPorts != null">
+                        <span
+                        v-for="item in (Object.entries(cntr.NetworkSettings.Ports)
+                        .map(value => (value)))" :key="item.id" class="ml-3">
+                            <span v-if="item[1] != null">
+                                {{ item[1][0].HostIp }}:{{ item[1][0].HostPort }}
+                                 =>
+                            </span>
+                            <span v-else>
+                                    <v-icon>report</v-icon>
+                                    <span>Unpublished  => </span>
+                            </span>
+                        </span>
+                        <span>{{ Object.keys(cntr.Config.ExposedPorts)[0] }}</span>
+                    </span>
+                    <span v-else class="ml-3">
+                        <v-icon>report</v-icon>
+                        <span>Unexposed</span>
+                    </span>
+                </v-layout>
             </v-card-text>
 
             <v-card-actions>
@@ -122,14 +146,7 @@
             <v-card-title class="headline">Inspect details</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-                <v-data-table
-                    :items="(Object.entries(cntr).map(value => (value)))"
-                    hide-headers hide-actions>
-                    <template slot="items" slot-scope="props">
-                      <td><strong>{{ props.item[0] }}</strong></td>
-                      <td><code>{{ props.item[1] }}</code></td>
-                    </template>
-                </v-data-table>
+                <code>{{ cntr }}</code>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
