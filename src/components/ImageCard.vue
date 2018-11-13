@@ -43,10 +43,43 @@
 
     <v-dialog v-model="historyDialog" width="1200px" scrollable >
         <v-card>
-            <v-card-title class="headline">History details</v-card-title>
+            <v-card-title class="headline">
+                History details
+                <v-btn flat icon color="blue" v-on:click='historyImage'>
+                    <v-icon>cached</v-icon>
+                </v-btn>
+            </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
                 <div v-if="history">
+                    <v-expansion-panel>
+                        <v-expansion-panel-content v-for="(item,i) in history" :key="i">
+                            <div slot="header">
+                                <v-layout justify-space-between row>
+                                    <span>{{ history.length-i }}</span>
+                                    <span>{{ item.Created | moment("from") }}</span>
+                                    <span>{{ item.Size | currency(' B', 0, { symbolOnLeft: false })}}</span>
+                                    <span>{{ item.Id }}</span>
+                                </v-layout>
+                            </div>
+                            <v-card>
+                                <v-card-text class="grey lighten-3">
+                                    <v-layout row>
+                                        <span class="mr-5">Tags : </span>
+                                        <span class="ml-5"><var>{{ item.Tags }}</var></span>
+                                    </v-layout>
+                                    <v-layout row>
+                                        <span class="mr-5">Comments : </span>
+                                        <span class="ml-5"><blockquote>{{ item.Comments }}</blockquote></span>
+                                    </v-layout>
+                                    <v-layout row>
+                                        <span class="mr-5"><v-icon>code</v-icon></span>
+                                        <span class="ml-5"><code>{{ item.CreatedBy }}</code></span>
+                                    </v-layout>
+                                </v-card-text>
+                            </v-card>
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
                     <code>{{ history }}</code>
                 </div>
                 <div v-else>
