@@ -4,7 +4,7 @@
         <v-avatar color="teal" size="36">
             <span class="white--text headline">{{ NETWORKS.length }}</span>
         </v-avatar>
-        <h1>Networks</h1>
+        <h1 class="ml-2">Networks</h1>
         <v-btn flat icon color="blue" v-on:click='refreshData'>
             <v-icon>cached</v-icon>
         </v-btn>
