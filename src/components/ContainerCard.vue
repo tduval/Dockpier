@@ -86,13 +86,13 @@
 
             <v-card-text>
                 <v-tooltip top>
-                    <p v-if='cntr.State.Running' slot="activator">
+                    <p v-if='getContainerStatus === "running"' slot="activator">
                         Container started {{ cntr.State.StartedAt | moment("from") }}
                     </p>
                     <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
                 </v-tooltip>
                 <v-tooltip top>
-                <p v-if='!cntr.State.Running' slot="activator">
+                <p v-if='getContainerStatus === "stopped"' slot="activator">
                     Container stopped {{ cntr.State.FinishedAt | moment("from") }}
                 </p>
                 <span>{{ cntr.State.StartedAt | moment("YYYY/MM/DD HH:mm") }}</span>
