@@ -10,7 +10,8 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat @click="inspectDialog = true">Inspect</v-btn>
+              <v-btn flat @click="inspectDialog = true" color="primary">Inspect</v-btn>
+              <v-btn flat @click="historyDialog = true" color="info">History</v-btn>
               <v-btn flat color="red">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
@@ -39,6 +40,27 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+
+    <v-dialog v-model="historyDialog" width="1200px" scrollable >
+        <v-card>
+            <v-card-title class="headline">History details</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+                <div v-if="history">
+                    <code>{{ history }}</code>
+                </div>
+                <div v-else>
+                    <v-btn flat icon color="blue" v-on:click='historyImage'>
+                        <v-icon>history</v-icon>
+                    </v-btn>
+                </div>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-btn @click.native="historyDialog = false">Close</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </div>
 </template>
 
@@ -56,6 +78,8 @@ export default {
       activeDeleteDialog: false,
       loading: false,
       inspectDialog: false,
+      historyDialog: false,
+      history: false,
     };
   },
   methods: {
@@ -69,6 +93,22 @@ export default {
           // eslint-disable-next-line
           console.log(response.data);
           // this.images = response.data;
+        }, (error) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.log('Error Axios : ', error);
+        });
+    },
+    historyImage() {
+      // eslint-disable-next-line
+      console.log('history : ', this.img.RepoTags[0]);
+      this.loading = true;
+      axios.get(`http://192.168.255.200:5000/images/${this.img.Id}/history`)
+        .then((response) => {
+          // eslint-disable-next-line
+          console.log(response.data);
+          this.history = response.data;
+          this.loading = false;
         }, (error) => {
           this.loading = false;
           // eslint-disable-next-line
