@@ -60,6 +60,7 @@ export default new Vuex.Store({
   actions: {
     getSysInfo({ commit }) {
       commit('SET_LOADING_STATE', true);
+      console.log(http);
       http.get('/system/info')
         .then((response) => {
           // eslint-disable-next-line
