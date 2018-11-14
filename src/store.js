@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import http from './http';
+import http from '@/http';
 
 Vue.use(Vuex);
 
