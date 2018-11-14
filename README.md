@@ -8,12 +8,11 @@ It is composed of 2 elements which is :
 ![GIF of Dockpier](https://github.com/tduval/Dockpier/blob/master/Dockpier-presentation.gif)
 
 ## Try it with Docker
-This app is available on Community Docker Hub at the following URL https://hub.docker.com/r/tduval/dockpier/
-Launch the container on a Manager Docker node with the following command :
+This app is available on Community Docker Hub at the following URL https://hub.docker.com/r/tduval/dockpier-apy/
+Launch the backend container on a Manager Docker node with the following command :
 ```
-docker run -dti --name dockpier -p 5000:5000 -v /var/run/docker.sock:/var/run/docker.sock tduval/dockpier:latest
+docker run -dti --name dockpier-apy -p 5000:5000 -v /var/run/docker.sock:/var/run/docker.sock tduval/dockpier-apy:latest
 ```
-WARNING : Deprecated Docker Container.
 
 ## Project setup
 ```
