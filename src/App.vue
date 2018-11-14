@@ -15,7 +15,7 @@
             <v-spacer></v-spacer>
 
             <v-toolbar-items>
-                <v-btn flat to="/">Home</v-btn>
+                <v-btn flat to="/home">Home</v-btn>
                 <v-btn flat to="/containers">
                     <v-badge color="teal">
                       <span slot="badge" small>{{ CONTAINERS.length }}</span>
@@ -59,11 +59,17 @@
 </style>
 
 <script>
+import http from './http';
+
 export default {
   data: () => ({
     drawer: false,
+    hostname: window.location.hostname,
   }),
   created() {
+    http.defaults.baseURL = (process.env.VUE_APP_API_BASE_HOST) ? http.defaults.baseURL : `http://${window.location.hostname}:5000`;
+    // eslint-disable-next-line
+    console.log(http.defaults.baseURL);
     this.$store.commit('SET_LOADING_STATE', true);
     this.$store.dispatch('getSysInfo');
     this.$store.dispatch('getSysVersion');
