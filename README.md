@@ -1,8 +1,8 @@
 # Dockpier
 Dockpier is personnal project to study Docker Container and API usage.
 It is composed of 2 elements which is :
-- App.py : Python-based API made with Flask, Flask-Restful and Docker-Py libraries to contact and interact with the local Docker Engine.
-- App.vue : Web-based Frontend made with VueJS frameworks which present the result of the python API by async request.
+- [**Dockpier-apy**](https://github.com/tduval/Dockpier-apy) : Python-based API made with Flask, Flask-Restful and Docker-Py libraries to contact and interact with the local Docker Engine.
+- [**Dockpier**](https://github.com/tduval/Dockpier) : Web-based Frontend made with VueJS frameworks which present the result of the python API by async request.
 
 ## Presentation
 ![GIF of Dockpier](https://github.com/tduval/Dockpier/blob/master/Dockpier-presentation.gif)
