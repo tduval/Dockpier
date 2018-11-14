@@ -1,5 +1,5 @@
 # build stage
-FROM node:8-alpine
+FROM node:8-alpine as build-stage
 
 # make the 'app' folder the current working directory
 WORKDIR /app
