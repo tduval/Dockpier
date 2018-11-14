@@ -13,8 +13,6 @@ Vue.use(Vue2Filters);
 Vue.use(require('vue-moment-jalaali'));
 
 Vue.config.productionTip = false;
-// eslint-disable-next-line
-console.log('ENV', process.env);
 
 new Vue({
   router,

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Splash from './views/Splash.vue';
 import Home from './views/Home.vue';
 import Containers from './views/Containers.vue';
 import Images from './views/Images.vue';
@@ -11,11 +10,6 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
-    {
-      path: '/splash',
-      name: 'splash',
-      component: Splash,
-    },
     {
       path: '/',
       name: 'home',

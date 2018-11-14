@@ -64,12 +64,11 @@ import http from './http';
 export default {
   data: () => ({
     drawer: false,
-    hostname: window.location.hostname,
   }),
   created() {
+    // Modify Axios baseUrl for API requests if the ENV is unset (typically Production environment)
     http.defaults.baseURL = (process.env.VUE_APP_API_BASE_HOST) ? http.defaults.baseURL : `http://${window.location.hostname}:5000`;
-    // eslint-disable-next-line
-    console.log(http.defaults.baseURL);
+
     this.$store.commit('SET_LOADING_STATE', true);
     this.$store.dispatch('getSysInfo');
     this.$store.dispatch('getSysVersion');
