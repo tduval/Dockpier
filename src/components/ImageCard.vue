@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import http from '@/http';
 
 export default {
   name: 'ImageCard',
@@ -128,7 +128,7 @@ export default {
       // eslint-disable-next-line
       console.log('getImageDetails : ', id);
       this.loading = true;
-      axios.delete(`http://192.168.255.200:5000/images/${id}`)
+      http.delete(`/images/${id}`)
         .then((response) => {
           this.loading = false;
           // eslint-disable-next-line
@@ -144,7 +144,7 @@ export default {
       // eslint-disable-next-line
       console.log('history : ', this.img.RepoTags[0]);
       this.loading = true;
-      axios.get(`http://192.168.255.200:5000/images/${this.img.Id}/history`)
+      http.get(`/images/${this.img.Id}/history`)
         .then((response) => {
           // eslint-disable-next-line
           console.log(response.data);

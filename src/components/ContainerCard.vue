@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import http from '@/http';
 
 export default {
   name: 'ContainerCard',
@@ -192,7 +192,7 @@ export default {
       // eslint-disable-next-line
       console.log('statusContainer : ', this.cntr.Name, operation);
       this.loading = true;
-      axios.put(`http://192.168.255.200:5000/containers/${this.cntr.Id}/status`, { status: operation })
+      http.put(`/containers/${this.cntr.Id}/status`, { status: operation })
         .then((response) => {
           this.$store.dispatch('getContainers');
           // eslint-disable-next-line
