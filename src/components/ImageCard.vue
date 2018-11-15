@@ -32,7 +32,17 @@
             </v-card-title>
 
             <v-card-text>
-                <span>{{ img.Size }} (Size)</span><br>
+                <span >
+                    <v-chip small disabled text-color="black" outline>
+                        {{ getContainers.length }}
+                    </v-chip>
+                    Container using this image
+                    <div v-if="getContainers.length">
+                        <span v-for="container in getContainers" :key="container.id">
+                            <v-chip small>{{ container[1].Name.substring(1) }}</v-chip>
+                        </span>
+                    </div>
+                </span><br>
             </v-card-text>
 
             <v-card-actions>
@@ -164,6 +174,12 @@ export default {
       historyDialog: false,
       history: false,
     };
+  },
+  computed: {
+    getContainers() {
+      return Object.entries(this.$store.getters.getContainerPerImageById(this.img.Id))
+        .map(value => (value));
+    },
   },
   methods: {
     deleteImage() {
