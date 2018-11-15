@@ -12,7 +12,7 @@
             <v-card-actions>
               <v-btn flat @click="inspectDialog = true" color="primary">Inspect</v-btn>
               <v-btn flat @click="historyDialog = true" color="info">History</v-btn>
-              <v-btn flat color="red">Delete</v-btn>
+              <v-btn flat @click="deleteDialog = true" color="red">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -102,6 +102,22 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+
+    <v-dialog v-model="deleteDialog" max-width="400">
+        <v-card>
+            <v-card-title class="headline">Do you want to delete this image?</v-card-title>
+            <v-card-text>
+                <h2>{{ img.RepoTags[0] }}</h2>
+                <p><code>{{ img.Config.Cmd.join(' ') }}</code></p>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn @click.native="deleteDialog = false">Cancel</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click.native="deleteImage()" color="error">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+
 </div>
 </template>
 
@@ -116,29 +132,30 @@ export default {
   data() {
     return {
       show: false,
-      activeDeleteDialog: false,
       loading: false,
+      deleteDialog: false,
       inspectDialog: false,
       historyDialog: false,
       history: false,
     };
   },
   methods: {
-    deleteImage(id) {
+    deleteImage() {
       // eslint-disable-next-line
-      console.log('getImageDetails : ', id);
+      console.log('getImageDetails : ', this.img.Id);
       this.loading = true;
-      http.delete(`/images/${id}`)
+      http.delete(`/images/${this.img.Id}`)
         .then((response) => {
-          this.loading = false;
+          this.$store.dispatch('getImages');
           // eslint-disable-next-line
           console.log(response.data);
-          // this.images = response.data;
+          this.loading = false;
         }, (error) => {
           this.loading = false;
           // eslint-disable-next-line
-          console.log('Error Axios : ', error);
+          console.error('Error Axios : ', error, error.data);
         });
+      this.deleteDialog = false;
     },
     historyImage() {
       // eslint-disable-next-line
