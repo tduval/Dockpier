@@ -4,8 +4,9 @@
         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
             <v-card-title primary-title>
               <div>
-                <div class="headline">{{ img.RepoTags[0] }}</div>
-                <span class="grey--text"><code>{{ img.Config.Cmd.join(' ') }}</code></span>
+                <div class="headline" v-if="img.RepoTags[0]">{{ img.RepoTags[0] }}</div>
+                <div class="headline" v-else><span class="grey--text">&lt;missing&gt;</span></div>
+                <span><code>{{ img.Config.Cmd.join(' ') }}</code></span>
               </div>
             </v-card-title>
 
@@ -107,7 +108,8 @@
         <v-card>
             <v-card-title class="headline">Do you want to delete this image?</v-card-title>
             <v-card-text>
-                <h2>{{ img.RepoTags[0] }}</h2>
+                <span v-if="img.RepoTags[0]"><h3>{{ img.RepoTags[0] }}</h3></span>
+                <span v-else class="grey--text"><h3>&lt;missing&gt;</h3></span>
                 <p><code>{{ img.Config.Cmd.join(' ') }}</code></p>
             </v-card-text>
             <v-card-actions>
