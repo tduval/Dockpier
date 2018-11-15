@@ -17,6 +17,12 @@
                 </div>
                 <span><code>{{ img.Config.Cmd.join(' ') }}</code></span><br>
                 <v-tooltip right>
+                    <span slot="activator" class="grey--text">
+                        Size {{ img.Size | bytes }}
+                    </span>
+                    <span>{{ img.Size | separator }} bytes</span>
+                </v-tooltip><br>
+                <v-tooltip right>
                     <span class="font-italic grey--text" slot="activator">
                         Image created {{ img.Created | moment("from") }}
                     </span>
