@@ -7,8 +7,29 @@
                 <div class="headline" v-if="img.RepoTags[0]">{{ img.RepoTags[0] }}</div>
                 <div class="headline" v-else><span class="grey--text">&lt;missing tag&gt;</span></div>
                 <span><code>{{ img.Config.Cmd.join(' ') }}</code></span>
+                    <v-tooltip right>
+                        <span slot="activator">
+                            {{ img.RepoTags[0] }}
+                        </span>
+                        <span>{{ img.RepoTags }}</span>
+                    </v-tooltip>
+                </div>
+                <div class="headline" v-else>
+                    <span class="grey--text">&lt;missing tag&gt;</span>
+                </div>
+                <span><code>{{ img.Config.Cmd.join(' ') }}</code></span><br>
+                <v-tooltip right>
+                    <span class="font-italic grey--text" slot="activator">
+                        Image created {{ img.Created | moment("from") }}
+                    </span>
+                    <span>{{ img.Created  | moment("YYYY/MM/DD HH:mm:ss") }}</span>
+                </v-tooltip>
               </div>
             </v-card-title>
+
+            <v-card-text>
+                <span>{{ img.Size }} (Size)</span><br>
+            </v-card-text>
 
             <v-card-actions>
               <v-btn flat @click="inspectDialog = true" color="primary">Inspect</v-btn>
@@ -89,7 +110,6 @@
                             </v-card>
                         </v-expansion-panel-content>
                     </v-expansion-panel>
-                    <code>{{ history }}</code>
                 </div>
                 <div v-else>
                     <v-btn flat icon color="blue" v-on:click='historyImage'>
