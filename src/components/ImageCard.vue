@@ -4,9 +4,7 @@
         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
             <v-card-title primary-title>
               <div>
-                <div class="headline" v-if="img.RepoTags[0]">{{ img.RepoTags[0] }}</div>
-                <div class="headline" v-else><span class="grey--text">&lt;missing tag&gt;</span></div>
-                <span><code>{{ img.Config.Cmd.join(' ') }}</code></span>
+                <div class="headline" v-if="img.RepoTags[0]">
                     <v-tooltip right>
                         <span slot="activator">
                             {{ img.RepoTags[0] }}
