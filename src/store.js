@@ -55,7 +55,11 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    getImageById: state => id => state.images.find(image => image.Id === id),
+    getImageById: state => id =>
+      state.images.find(image => image.Id === id),
+
+    getContainerPerImageById: state => id =>
+      state.containers.filter(container => container.Image === id),
   },
   actions: {
     getSysInfo({ commit }) {
