@@ -5,7 +5,7 @@
             <v-card-title primary-title>
               <div>
                 <div class="headline" v-if="img.RepoTags[0]">{{ img.RepoTags[0] }}</div>
-                <div class="headline" v-else><span class="grey--text">&lt;missing&gt;</span></div>
+                <div class="headline" v-else><span class="grey--text">&lt;missing tag&gt;</span></div>
                 <span><code>{{ img.Config.Cmd.join(' ') }}</code></span>
               </div>
             </v-card-title>
@@ -109,7 +109,7 @@
             <v-card-title class="headline">Do you want to delete this image?</v-card-title>
             <v-card-text>
                 <span v-if="img.RepoTags[0]"><h3>{{ img.RepoTags[0] }}</h3></span>
-                <span v-else class="grey--text"><h3>&lt;missing&gt;</h3></span>
+                <span v-else class="grey--text"><h3>&lt;missing tag&gt;</h3></span>
                 <p><code>{{ img.Config.Cmd.join(' ') }}</code></p>
             </v-card-text>
             <v-card-actions>
