@@ -75,7 +75,8 @@
                         <span class="text-truncate">{{ cntr.Name.substring(1) }}</span>
                     </div>
                     <span class="grey--text">Based on image :
-                        <strong>{{ $store.getters.getImageById(cntr.Image).RepoTags[0] }}</strong>
+                        <strong v-if="getImage.RepoTags[0]">{{ getImage.RepoTags[0] }}</strong>
+                        <span v-else>&lt;missing tag&gt;</span>
                     </span><br>
                     <span class="grey--text">Run CMD :
                         <code>{{ cntr.Config.Cmd.join(' ') }}</code>
@@ -176,6 +177,9 @@ export default {
     };
   },
   computed: {
+    getImage() {
+      return this.$store.getters.getImageById(this.cntr.Image);
+    },
     getContainerStatus() {
       if (this.cntr.State.Running && !this.cntr.State.Paused) {
         return 'running';
