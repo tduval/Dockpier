@@ -201,7 +201,7 @@ export default {
         }, (error) => {
           this.loading = false;
           // eslint-disable-next-line
-          console.log('Error Axios : ', error);
+          console.error(error.message, error.response);
         });
     },
   },

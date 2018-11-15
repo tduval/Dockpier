@@ -69,7 +69,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getSysInfo = ', error);
+          console.error('Error getSysInfo = ', error.message, error.response);
           return false;
         });
     },
@@ -84,7 +84,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getSysVersion = ', error);
+          console.error('Error getSysVersion = ', error.message, error.response);
           return false;
         });
     },
@@ -99,7 +99,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getSysDf = ', error);
+          console.error('Error getSysDf = ', error.message, error.response);
           return false;
         });
     },
@@ -114,7 +114,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getSysEvents = ', error);
+          console.error('Error getSysEvents = ', error.message, error.response);
           return false;
         });
     },
@@ -129,7 +129,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getImages = ', error);
+          console.error('Error getImages = ', error.message, error.response);
           return false;
         });
     },
@@ -144,7 +144,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getContainers = ', error);
+          console.error('Error getContainers = ', error.message, error.response);
           return false;
         });
     },
@@ -159,7 +159,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getNetworks = ', error);
+          console.error('Error getNetworks = ', error.message, error.response);
           return false;
         });
     },
@@ -174,7 +174,7 @@ export default new Vuex.Store({
           return true;
         }, (error) => {
           // eslint-disable-next-line
-          console.error('Error getVolumes = ', error);
+          console.error('Error getVolumes = ', error.message, error.response);
           return false;
         });
     },
