@@ -150,10 +150,14 @@ export default {
           // eslint-disable-next-line
           console.log(response.data);
           this.loading = false;
-        }, (error) => {
+        }).catch((error) => {
           this.loading = false;
           // eslint-disable-next-line
-          console.error('Error Axios : ', error, error.data);
+          console.error('Error Axios : ', JSON.stringify(error));
+          // eslint-disable-next-line
+          console.log('Response : ', error.response.data);
+          // eslint-disable-next-line
+          console.log('Status : ', error.status);
         });
       this.deleteDialog = false;
     },
