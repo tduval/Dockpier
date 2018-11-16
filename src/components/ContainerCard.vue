@@ -124,6 +124,22 @@
                         <span class="font-italic">Unexposed</span>
                     </span>
                 </v-layout>
+
+                <v-layout row justify-space-between wrap px-3>
+                    <strong>Networks</strong>
+                    <span v-if="cntr.NetworkSettings.Networks != null">
+                        <span v-for="item in (Object.entries(cntr.NetworkSettings.Networks)
+                            .map(value => (value)))" :key="item.id" class="ml-3">
+                            <span>
+                                {{ item[0] }}
+                            </span>
+                        </span>
+                    </span>
+                    <span v-else class="ml-3">
+                        <v-icon>report</v-icon>
+                        <span class="font-italic">No network assigned</span>
+                    </span>
+                </v-layout>
             </v-card-text>
 
             <v-card-actions>
