@@ -154,6 +154,13 @@
         </v-card>
     </v-dialog>
 
+    <v-snackbar v-model="alerting" :color="alertConfig.color" top multi-line>
+        {{ alertConfig.message }}
+        <v-btn dark flat @click="alerting = false">
+            Close
+        </v-btn>
+    </v-snackbar>
+
 </div>
 </template>
 
@@ -173,6 +180,12 @@ export default {
       inspectDialog: false,
       historyDialog: false,
       history: false,
+      alerting: false,
+      alertConfig: {
+        color: '',
+        title: '',
+        message: '',
+      },
     };
   },
   computed: {
@@ -191,11 +204,23 @@ export default {
           this.$store.dispatch('getImages');
           // eslint-disable-next-line
           console.log(response.data);
+          this.alertConfig = {
+            color: 'success',
+            title: 'Success',
+            message: 'The image has been successfully deleted.',
+          };
+          this.alerting = true;
           this.loading = false;
         }, (error) => {
-          this.loading = false;
           // eslint-disable-next-line
           console.error(error.message, error.response);
+          this.alertConfig = {
+            color: 'error',
+            title: 'Error',
+            message: error.response.data.message,
+          };
+          this.alerting = true;
+          this.loading = false;
         });
       this.deleteDialog = false;
     },
