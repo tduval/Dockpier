@@ -144,7 +144,7 @@
 
             <v-card-actions>
               <v-btn flat @click="inspectDialog = true">Inspect</v-btn>
-              <v-btn flat color="red">Delete</v-btn>
+              <v-btn flat @click="deleteDialog = true" color="red">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -172,6 +172,28 @@
             </v-card-actions>
         </v-card>
     </v-dialog>
+
+    <v-dialog v-model="deleteDialog" max-width="400">
+        <v-card>
+            <v-card-title class="headline">Do you want to delete this container?</v-card-title>
+            <v-card-text>
+                <h3>{{ cntr.Name.substring(1) }}</h3>
+                <span class="grey--text">Based on image :
+                    <strong v-if="getImage.RepoTags[0]">{{ getImage.RepoTags[0] }}</strong>
+                    <span v-else>&lt;missing tag&gt;</span>
+                </span><br>
+                <span class="grey--text">Run CMD :
+                    <code>{{ cntr.Config.Cmd.join(' ') }}</code>
+                </span>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn @click.native="deleteDialog = false">Cancel</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click.native="deleteContainer()" color="error">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+
 </div>
 </template>
 
@@ -186,10 +208,10 @@ export default {
   data() {
     return {
       show: false,
-      activeDeleteDialog: false,
       loading: false,
       fab: false,
       inspectDialog: false,
+      deleteDialog: false,
       cntrStatus: false,
     };
   },
@@ -224,6 +246,23 @@ export default {
           // eslint-disable-next-line
           console.error(error.message, error.response);
         });
+    },
+    deleteContainer() {
+      // eslint-disable-next-line
+      console.log('Delete : ', this.cntr.Name);
+      this.loading = true;
+      http.delete(`/containers/${this.cntr.Id}`)
+        .then((response) => {
+          this.$store.dispatch('getContainers');
+          // eslint-disable-next-line
+          console.log(response.data);
+          this.loading = false;
+        }, (error) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.error(error.message, error.response);
+        });
+      this.deleteDialog = false;
     },
   },
 };
