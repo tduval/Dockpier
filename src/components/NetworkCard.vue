@@ -16,7 +16,7 @@
 
             <v-card-actions>
               <v-btn flat>Inspect</v-btn>
-              <v-btn flat color="red">Delete</v-btn>
+              <v-btn flat @click="deleteDialog = true" color="error">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -37,24 +37,63 @@
             </v-slide-y-transition>
         </v-card>
     </v-hover>
+
+    <v-dialog v-model="deleteDialog" max-width="400">
+        <v-card>
+            <v-card-title class="headline">Do you want to delete this network?</v-card-title>
+            <v-card-text>
+                <h3>{{ net.Name }}</h3>
+                <span>Scope :
+                    <strong>{{ net.Scope }}</strong>
+                </span><br>
+                <span>Driver :
+                    <strong>{{ net.Driver }}</strong>
+                </span>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn @click.native="deleteDialog = false">Cancel</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn @click.native="deleteNetwork()" color="error">Delete</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+
 </div>
 </template>
 
 <script>
+import http from '@/http';
 
 export default {
-  name: 'ContainerCard',
+  name: 'NetworkCard',
   props: {
     net: null,
   },
   data() {
     return {
       show: false,
-      activeDeleteDialog: false,
+      deleteDialog: false,
       loading: false,
     };
   },
   methods: {
+    deleteNetwork() {
+      // eslint-disable-next-line
+      console.log('Delete : ', this.net.Name);
+      this.loading = true;
+      http.delete(`/networks/${this.net.Id}`)
+        .then((response) => {
+          this.$store.dispatch('getNetworks');
+          // eslint-disable-next-line
+          console.log(response.data);
+          this.loading = false;
+        }, (error) => {
+          this.loading = false;
+          // eslint-disable-next-line
+          console.error(error.message, error.response);
+        });
+      this.deleteDialog = false;
+    },
   },
 };
 </script>
