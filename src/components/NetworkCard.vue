@@ -15,7 +15,7 @@
             </v-card-title>
 
             <v-card-actions>
-              <v-btn flat>Inspect</v-btn>
+              <v-btn flat @click="inspectDialog = true">Inspect</v-btn>
               <v-btn flat @click="deleteDialog = true" color="error">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
@@ -25,18 +25,25 @@
 
             <v-slide-y-transition>
               <v-card-text v-show="show">
-                  <v-data-table
-                      :items="(Object.entries(net).map(value => (value)))"
-                      hide-headers hide-actions>
-                      <template slot="items" slot-scope="props">
-                          <td><strong>{{ props.item[0] }}</strong></td>
-                          <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                      </template>
-                  </v-data-table>
+                  something...
               </v-card-text>
             </v-slide-y-transition>
         </v-card>
     </v-hover>
+
+    <v-dialog v-model="inspectDialog" max-width="800px" scrollable >
+        <v-card>
+            <v-card-title class="headline">Inspect details</v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+                <code>{{ net }}</code>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+                <v-btn @click.native="inspectDialog = false">Close</v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 
     <v-dialog v-model="deleteDialog" max-width="400">
         <v-card>
@@ -72,8 +79,9 @@ export default {
   data() {
     return {
       show: false,
-      deleteDialog: false,
       loading: false,
+      inspectDialog: false,
+      deleteDialog: false,
     };
   },
   methods: {
