@@ -102,7 +102,8 @@
 
             <v-card-text>
                 <v-layout row justify-space-between wrap px-3>
-                    <strong>Published Ports</strong>
+                    <strong v-if='getContainerStatus != "stopped"'>Published Ports</strong>
+                    <strong v-else>Exposed Ports</strong>
                     <span v-if="cntr.Config.ExposedPorts != null">
                         <span
                         v-for="item in (Object.entries(cntr.NetworkSettings.Ports)
@@ -113,14 +114,14 @@
                             </span>
                             <span v-else>
                                     <v-icon>report</v-icon>
-                                    <span>Unpublished  => </span>
+                                    <span class="font-italic">Unpublished  => </span>
                             </span>
                         </span>
                         <span>{{ Object.keys(cntr.Config.ExposedPorts)[0] }}</span>
                     </span>
                     <span v-else class="ml-3">
                         <v-icon>report</v-icon>
-                        <span>Unexposed</span>
+                        <span class="font-italic">Unexposed</span>
                     </span>
                 </v-layout>
             </v-card-text>
