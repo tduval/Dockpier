@@ -1,6 +1,8 @@
 <template>
 <div>
     <v-layout row justify-center>
+        <v-flex xs5>
+        </v-flex>
         <v-avatar color="teal" size="36">
             <span class="white--text headline">{{ VOLUMES.length }}</span>
         </v-avatar>
@@ -8,6 +10,12 @@
         <v-btn flat icon color="blue" v-on:click='refreshData'>
             <v-icon>cached</v-icon>
         </v-btn>
+        <v-spacer></v-spacer>
+        <v-flex xs3>
+            <v-text-field placeholder="Search..." append-icon="search"
+            single-line clearable v-model="searchValue">
+            </v-text-field>
+        </v-flex>
     </v-layout>
 
     <v-container fluid grid-list-xl>
@@ -32,6 +40,11 @@ export default {
   name: 'volumes',
   components: {
     VolumeCard,
+  },
+  data() {
+    return {
+      searchValue: '',
+    };
   },
   mounted() {
     this.refreshData();
