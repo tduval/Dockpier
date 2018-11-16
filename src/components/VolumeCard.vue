@@ -81,7 +81,7 @@ export default {
       // eslint-disable-next-line
       console.log('Delete : ', this.vol.Name);
       this.loading = true;
-      http.delete(`/volumes/${this.vol.Id}`)
+      http.delete(`/volumes/${this.vol.Name}`)
         .then((response) => {
           this.$store.dispatch('getVolumes');
           // eslint-disable-next-line
