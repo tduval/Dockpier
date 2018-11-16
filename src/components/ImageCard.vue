@@ -48,7 +48,7 @@
             <v-card-actions>
               <v-btn flat @click="inspectDialog = true" color="primary">Inspect</v-btn>
               <v-btn flat @click="historyDialog = true" color="info">History</v-btn>
-              <v-btn flat @click="deleteDialog = true" color="red">Delete</v-btn>
+              <v-btn flat @click="deleteDialog = true" color="error">Delete</v-btn>
               <v-spacer></v-spacer>
               <v-btn icon @click="show = !show">
                 <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
