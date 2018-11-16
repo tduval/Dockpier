@@ -46,7 +46,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn flat @click="inspectDialog = true" color="primary">Inspect</v-btn>
+              <v-btn flat @click="inspectDialog = true">Inspect</v-btn>
               <v-btn flat @click="historyDialog = true" color="info">History</v-btn>
               <v-btn flat @click="deleteDialog = true" color="error">Delete</v-btn>
               <v-spacer></v-spacer>
