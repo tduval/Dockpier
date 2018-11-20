@@ -1,3 +1,5 @@
+![Docker Automated build](https://img.shields.io/docker/automated/tduval/dockpier.svg?style=flat-square) [![Docker Build Status](https://img.shields.io/docker/build/tduval/dockpier.svg?style=flat-square)](https://hub.docker.com/r/tduval/dockpier/)
+
 # Dockpier
 Dockpier is personnal project to study Docker Container and API usage.
 It is composed of 2 elements which is :
