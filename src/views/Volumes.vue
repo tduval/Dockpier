@@ -22,7 +22,7 @@
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
 
-            <v-flex v-for="volume in VOLUMES" :key="volume.id" xs3>
+            <v-flex v-for="volume in VOLUMES" :key="volume.id" xs12 sm6 md4 lg3>
                 <VolumeCard :vol='volume' />
             </v-flex>
         </v-layout>

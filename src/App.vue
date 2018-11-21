@@ -47,7 +47,7 @@
 
         </v-toolbar>
         <v-content>
-            <v-container>
+            <v-container fluid>
                 <router-view/>
             </v-container>
         </v-content>

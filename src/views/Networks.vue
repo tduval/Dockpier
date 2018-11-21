@@ -22,7 +22,7 @@
         <v-layout row justify-space-around wrap>
             <vue-element-loading :active="loading" color="#42b983"/>
 
-            <v-flex v-for="network in NETWORKS" :key="network.id" xs3>
+            <v-flex v-for="network in NETWORKS" :key="network.id" xs12 sm6 md4 lg3>
                 <NetworkCard :net='network' />
             </v-flex>
         </v-layout>
