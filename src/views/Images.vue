@@ -54,21 +54,12 @@ export default {
       return this.$store.state.loading;
     },
     IMAGES() {
+      if (this.searchValue) {
+        return this.$store.state.images.filter(i =>
+          i.RepoTags.toString().includes(this.searchValue.toString().toLowerCase()));
+      }
       return this.$store.state.images;
     },
-    // IMAGES_SEARCH() {
-    //   let imgLists = false;
-    //   if (this.searchValue) {
-    //     // eslint-disable-next-line
-    //     console.log("Search Value : ", this.searchValue);
-    //     imgLists = this.$store.state.images.filter(image => image.includes(this.searchValue));
-    //     // eslint-disable-next-line
-    //     console.log("imgLists : ", imgLists);
-    //   } else {
-    //     imgLists = this.$store.state.images;
-    //   }
-    //   return imgLists;
-    // },
   },
   methods: {
     refreshData() {

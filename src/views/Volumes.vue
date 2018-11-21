@@ -54,10 +54,11 @@ export default {
       return this.$store.state.loading;
     },
     VOLUMES() {
+      if (this.searchValue) {
+        return this.$store.state.volumes.filter(v =>
+          v.Name.toString().includes(this.searchValue.toString().toLowerCase()));
+      }
       return this.$store.state.volumes;
-    },
-    VOLUMES_ARRAY() {
-      return Object.entries(this.VOLUMES).map(value => (value));
     },
   },
   methods: {
