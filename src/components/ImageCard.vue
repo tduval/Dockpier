@@ -5,9 +5,9 @@
             <v-card-title primary-title>
               <div>
                 <div class="headline" v-if="img.RepoTags[0]">
-                    <v-tooltip right>
+                    <v-tooltip top>
                         <span slot="activator">
-                            {{ img.RepoTags[0] }}
+                            {{ img.RepoTags[0] | truncate(30) }}
                         </span>
                         <span>{{ img.RepoTags }}</span>
                     </v-tooltip>

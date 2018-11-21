@@ -72,7 +72,12 @@
                             </v-tooltip>
                         </v-speed-dial>
                         <v-divider vertical class="mx-4"></v-divider>
-                        <span class="text-truncate">{{ cntr.Name.substring(1) }}</span>
+                        <v-tooltip top>
+                            <span slot="activator">
+                                {{ cntr.Name.substring(1) | truncate(25) }}
+                            </span>
+                            <span>{{ cntr.Name }}</span>
+                        </v-tooltip>
                     </div>
                     <span class="grey--text">Based on image :
                         <strong v-if="getImage.RepoTags[0]">{{ getImage.RepoTags[0] }}</strong>

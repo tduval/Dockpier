@@ -4,7 +4,14 @@
         <v-card slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
             <v-card-title primary-title>
               <div>
-                <div class="headline">{{ vol.Name }}</div>
+                <div class="headline">
+                    <v-tooltip top>
+                        <span slot="activator">
+                            {{ vol.Name | truncate(30) }}
+                        </span>
+                        <span>{{ vol.Name }}</span>
+                    </v-tooltip>
+                </div>
                 <span class="grey--text">Scope :
                     <strong>{{ vol.Scope }}</strong>
                 </span><br>
