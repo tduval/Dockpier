@@ -54,10 +54,11 @@ export default {
       return this.$store.state.loading;
     },
     NETWORKS() {
+      if (this.searchValue) {
+        return this.$store.state.networks.filter(n =>
+          n.Name.toString().includes(this.searchValue.toString().toLowerCase()));
+      }
       return this.$store.state.networks;
-    },
-    NETWORKS_ARRAY() {
-      return Object.entries(this.NETWORKS).map(value => (value));
     },
   },
   methods: {

@@ -54,6 +54,10 @@ export default {
       return this.$store.state.loading;
     },
     CONTAINERS() {
+      if (this.searchValue) {
+        return this.$store.state.containers.filter(c =>
+          c.Name.toString().includes(this.searchValue.toString().toLowerCase()));
+      }
       return this.$store.state.containers;
     },
   },
