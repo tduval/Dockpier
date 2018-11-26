@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-layout row justify-center>
-        <h1>Info</h1>
+        <h1>Home</h1>
         <v-btn flat icon color="blue" v-on:click='refreshData'>
             <v-icon>cached</v-icon>
         </v-btn>
@@ -10,34 +10,96 @@
     <v-layout row justify-space-around wrap>
         <vue-element-loading :active="loading" color="#42b983"/>
 
-        <v-flex v-if="SYS_VERSION" xs3>
-            <h2 class="text-md-center">Docker Version</h2>
-            <v-data-table :items="SYS_VERSION_ARRAY" hide-headers hide-actions>
-                <template slot="items" slot-scope="props">
-                    <td><strong>{{ props.item[0] }}</strong></td>
-                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                </template>
-            </v-data-table>
+        <v-flex shrink sm2>
+            <v-card to="/containers" ripple hover>
+                <v-card-title primary-title>
+                    <v-avatar color="teal">
+                        <span class="white--text headline">{{ SYS_INFO.Containers }}</span>
+                    </v-avatar>
+                    <div class="headline pl-3">Containers</div>
+                </v-card-title>
+                <v-card-text>
+                    <v-layout row justify-space-around wrap px-3 pb-3>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.ContainersRunning }} running
+                            </div>
+                        </v-flex>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.ContainersStopped }} stopped
+                            </div>
+                        </v-flex>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.ContainersPaused }} paused
+                            </div>
+                        </v-flex>
+                    </v-layout>
+                </v-card-text>
+            </v-card>
         </v-flex>
 
-        <v-flex v-if="SYS_DF" xs3>
-            <h2 class="text-md-center">Docker Stats</h2>
-            <v-data-table :items="SYS_DF_ARRAY" hide-headers hide-actions>
-                <template slot="items" slot-scope="props">
-                    <td><strong>{{ props.item[0] }}</strong></td>
-                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                </template>
-            </v-data-table>
+        <v-flex shrink sm2>
+            <v-card to="/images" ripple hover>
+                <v-card-title primary-title>
+                    <v-avatar color="teal">
+                        <span class="white--text headline">{{ SYS_DF.Images.length }}</span>
+                    </v-avatar>
+                    <div class="headline pl-3">Images</div>
+                </v-card-title>
+                <v-card-text>
+                    <v-layout row justify-space-around wrap px-3 pb-3>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_DF.LayersSize | bytes }}
+                            </div>
+                        </v-flex>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                <span v-for="(value, key) in SYS_INFO.RegistryConfig.IndexConfigs"
+                                :key="key">
+                                    <strong>{{ key }}</strong>
+                                </span>
+                                default Registry
+                            </div>
+                        </v-flex>
+                    </v-layout>
+                </v-card-text>
+            </v-card>
         </v-flex>
 
-        <v-flex v-if="SYS_INFO" ma-2 xs3>
-            <h2 class="text-md-center">Docker Info</h2>
-            <v-data-table :items="SYS_INFO_ARRAY" hide-headers hide-actions>
-                <template slot="items" slot-scope="props">
-                    <td><strong>{{ props.item[0] }}</strong></td>
-                    <td class="text-xs-left"><code>{{ props.item[1] }}</code></td>
-                </template>
-            </v-data-table>
+        <v-flex shrink sm2>
+            <v-card to="/system" ripple hover>
+                <v-card-title primary-title>
+                    <v-chip color="indigo" text-color="white">
+                        <v-avatar>
+                            <v-icon>build</v-icon>
+                        </v-avatar>
+                        {{ SYS_VERSION.Version }}
+                    </v-chip>
+                    <span class="headline pl-3">Engine</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-layout row justify-space-around wrap px-3 pb-3>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.OperatingSystem }}
+                            </div>
+                        </v-flex>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.NCPU }}CPU
+                            </div>
+                        </v-flex>
+                        <v-flex shrink>
+                            <div class="font-weight-light">
+                                {{ SYS_INFO.MemTotal | bytes }} RAM
+                            </div>
+                        </v-flex>
+                    </v-layout>
+                </v-card-text>
+            </v-card>
         </v-flex>
 
     </v-layout>
@@ -62,20 +124,11 @@ export default {
     SYS_INFO() {
       return this.$store.state.sys_info;
     },
-    SYS_INFO_ARRAY() {
-      return Object.entries(this.SYS_INFO).map(value => (value));
-    },
     SYS_VERSION() {
       return this.$store.state.sys_version;
     },
-    SYS_VERSION_ARRAY() {
-      return Object.entries(this.SYS_VERSION).map(value => (value));
-    },
     SYS_DF() {
       return this.$store.state.sys_df;
-    },
-    SYS_DF_ARRAY() {
-      return Object.entries(this.SYS_DF).map(value => (value));
     },
   },
   methods: {
