@@ -16,6 +16,7 @@
 
             <v-toolbar-items>
                 <v-btn flat to="/">Home</v-btn>
+                <v-btn flat to="/system">System</v-btn>
                 <v-btn flat to="/containers">
                     <v-badge color="teal">
                       <span slot="badge" small>{{ CONTAINERS.length }}</span>
